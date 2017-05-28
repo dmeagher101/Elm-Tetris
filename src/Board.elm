@@ -1,6 +1,7 @@
 module Board exposing (Block, newBoard, getBlock, setBlock)
 
 import Array exposing (..)
+import Collage exposing (..)
 
 width = 10
 height = 20
