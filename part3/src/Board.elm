@@ -1,4 +1,4 @@
-module Board exposing (Block, newBoard, getBlock, setBlock)
+module Board exposing (Block, newBoard, getBlock, setBlock, Board)
 
 import Array exposing (..)
 
