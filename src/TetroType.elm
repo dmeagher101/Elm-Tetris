@@ -5,15 +5,10 @@ import Board exposing (..)
 
 type alias TetroType = Array (Int, Int)
 
-type alias Position = 
-    { x : Int  
-    , y : Int
-    }
-
-type alias Tetromino = 
-    { tetro : TetroType  
-    , current : List Position
-    , position : Int  
+type alias Tetromino =
+    { tetro : TetroType
+    , current : List (Int, Int)
+    , position : Int
     }
 
 l_type : TetroType

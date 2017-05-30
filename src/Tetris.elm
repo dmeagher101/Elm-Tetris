@@ -55,11 +55,11 @@ tetroGenerator =
     in
     case random of
         0 -> { tetro = l_type
-             , current = [{x = 0, y = 21}, {x = 1, y = 21}, {x = 2,y=21},{x=2,y=22}]
+             , current = [(0, 21), (1, 21), (2, 21),(2,22)]
              , position = 0
              }
         _ -> { tetro = l_type
-             , current = [{x = 0, y = 21}, {x = 1, y = 21}, {x = 2,y=21},{x=2,y=22}]
+             , current = [(0, 21), (1, 21), (2,21),(2,22)]
              , position = 0
              }
     {-

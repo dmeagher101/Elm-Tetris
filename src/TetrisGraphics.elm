@@ -28,9 +28,9 @@ drawBlock : Int -> Block -> Form
 drawBlock i b =
   let f = filled (blockRGB b) <| square (toFloat blockWidth)
       x = toFloat <| (blockWidth) * (i % 10) -- pixWidth // 2
-      y = toFloat <| (blockWidth) * (i // 10) - pixWidth
+      y = toFloat <| pixWidth - (blockWidth) * (i // 10)
   in
-    move (x, -y) f
+    move (x, y) f
 
 drawTetromino : Tetromino -> List Form
 drawTetromino t =
@@ -47,13 +47,14 @@ drawTetromino t =
   in
     List.map (drawPosition c) current
 
-drawPosition : Color -> TetroType.Position -> Form
-drawPosition c p =
+drawPosition : Color -> (Int, Int) -> Form
+drawPosition c (x, y) =
   let
     f = filled c <| square (toFloat blockWidth)
-    {x, y} = p
+    xoff = toFloat <| (blockWidth) * x
+    yoff = toFloat <| (blockWidth) * y - pixWidth
   in
-    move (toFloat x, toFloat -y) f
+    move (xoff, -yoff) f
 
 toForms : Board -> List Form
 toForms b = --Debug.crash "TODO"
