@@ -110,7 +110,9 @@ setTetro_ : Block -> Board -> List (Int, Int) -> Board
 setTetro_ bl bo ps =
   case ps of
     [] -> bo
-    (x,y)::tl -> setTetro_ bl (setBlock bl bo x y) tl
+    (x,y)::tl ->
+      let bo_ = setBlock bl bo x y in
+      setTetro_ bl bo_ tl
 
 rotateTetro: Tetromino -> Tetromino
 rotateTetro t =
