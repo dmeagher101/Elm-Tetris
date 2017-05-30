@@ -10,6 +10,7 @@ import Element exposing (..)
 import Time exposing (..)
 import Random exposing (..)
 import Keyboard exposing (..)
+import Tetromino exposing (..)
 
 type Msg = Tick | Input KeyCode | Cycle
 
@@ -20,6 +21,7 @@ type alias Model =
     , piece : Tetromino
     , seed : Seed
     , level : Int
+    , floored : Bool
     }
 
 l_start : Tetromino
@@ -41,7 +43,8 @@ initialmodel =
   { board = newBoard ,
     piece = makeTetro 5,
     seed = Random.initialSeed 0,
-    level = 0
+    level = 1,
+    floored = False
   }
 
 view : Model -> Html msg
