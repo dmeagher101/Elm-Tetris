@@ -102,6 +102,30 @@ checkBelow b ps =
     _ ->
       List.foldr (||) False <| List.map (checkBelow_ b) ps
 
+checkLeft_ : Board -> (Int, Int) -> Bool
+checkLeft_ b (x, y) =
+  let b_ = getBlock b (x-1) y in
+  x <= 0 || b_ /= E || b_ == Out
+
+checkLeft : Board -> List (Int , Int) -> Bool
+checkLeft b ps =
+  case ps of
+    [] -> False
+    _ ->
+      List.foldr (||) False <| List.map (checkLeft_ b) ps
+
+checkRight_ : Board -> (Int, Int) -> Bool
+checkRight_ b (x, y) =
+  let b_ = getBlock b (x+1) y in
+  x >= 10 || b_ /= E || b_ == Out
+
+checkRight : Board -> List (Int , Int) -> Bool
+checkRight b ps =
+  case ps of
+    [] -> False
+    _ ->
+      List.foldr (||) False <| List.map (checkRight_ b) ps
+
 setTetro : Board -> Tetromino -> Board
 setTetro b t =
   setTetro_ (tetroBlock t) b t.current

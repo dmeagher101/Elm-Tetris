@@ -45,14 +45,6 @@ checkFull b i =
       l = filter checkEmpty <| slice ri (ri + 9) b in
   isEmpty l
 
-checkFulls : Int -> Int -> Board -> (Board, List Int)
-checkFulls i acc b =
-  if acc == 4 then (b, [])
-  else if (checkFull b i) then
-    checkFulls i (acc + 1) <| clearLine i b
-  else
-    checkFulls (i+1) 0 b
-
 lineEnd i =
   lineStart i + 9
 
@@ -68,6 +60,17 @@ clearLine i b =
   in
     append emptyline (append top bottom)
 
+checkClear : Board -> List Int
+checkClear b = 
+  List.map (\x -> (if checkFull b x then x else -1)) (List.range 0 19)
+
+clearAll : Board -> List Int -> Board
+clearAll b ls =
+  case ls of 
+    []     -> b
+    l::ls_ -> if (l>=0) 
+              then clearAll (clearLine l b) ls_ 
+              else clearAll b ls_  
 
 
 setBlock : Block -> Board -> Int -> Int -> Board

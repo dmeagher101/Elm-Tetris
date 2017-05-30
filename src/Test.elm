@@ -78,7 +78,7 @@ subscriptions : Model -> Sub Msg
 subscriptions model =
   Sub.batch
   [
-    every (1 * millisecond) (\t -> if (model.floored) then Cycle
+    every (20 * millisecond) (\t -> if (model.floored) then Cycle
                                      else if (model.over) then Over
                                      else Check),
     every (1 * second) (\t -> Tick),
@@ -100,14 +100,18 @@ update msg model =
 
 update : Msg -> Model -> (Model, Cmd Msg)
 update msg model =
+    if model.over then (model, Cmd.none)
+    else
     case msg of
         Check ->
           let
             oldPiece = model.piece
+            newPiece = downTetro oldPiece
+            newBoard = setTetro model.board newPiece
+            newBoard_ = clearAll newBoard (checkClear newBoard)
           in
-            if (checkBelow model.board oldPiece.current)
-            then
-                ({ model | board = setTetro model.board (downTetro oldPiece)
+            if (checkBelow model.board oldPiece.current) then
+                ({ model | board = newBoard_
                  ,         piece = oldPiece
                  ,         seed = model.seed
                  ,         level = model.level
@@ -142,8 +146,22 @@ update msg model =
                  ,         level = model.level
                  }
                  , Cmd.none)
-        Input 37 -> ({ model | board = model.board
-                 ,         piece = leftTetro model.piece
+        Input 37 -> 
+          let
+            oldPiece = model.piece
+            newPiece = leftTetro model.piece
+          in
+            if (checkLeft model.board oldPiece.current)
+            then
+                ({ model | board = model.board
+                 ,         piece = oldPiece
+                 ,         seed = model.seed
+                 ,         level = model.level
+                 }
+                 , Cmd.none)
+            else
+                ({ model | board = model.board
+                 ,         piece = newPiece
                  ,         seed = model.seed
                  ,         level = model.level
                  }
@@ -154,12 +172,27 @@ update msg model =
                  ,         level = model.level
                  }
                  , Cmd.none)
-        Input 39 -> ({ model | board = model.board
-                 ,         piece = rightTetro model.piece
+        Input 39 -> 
+          let
+            oldPiece = model.piece
+            newPiece = rightTetro model.piece
+          in
+            if (checkRight model.board oldPiece.current)
+            then
+                ({ model | board = model.board
+                 ,         piece = oldPiece
                  ,         seed = model.seed
                  ,         level = model.level
                  }
                  , Cmd.none)
+            else
+                ({ model | board = model.board
+                 ,         piece = newPiece
+                 ,         seed = model.seed
+                 ,         level = model.level
+                 }
+                 , Cmd.none)
+
         Input 40 -> ({ model | board = model.board
                  ,         piece = downTetro model.piece
                  ,         seed = model.seed
