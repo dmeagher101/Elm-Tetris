@@ -7,7 +7,7 @@ width = 10
 height = 20
 
 type Block =
-  E | Cyan | Yellow | Purple | Green | Red | Blue | Orange
+  E | Cyan | Yellow | Purple | Green | Red | Blue | Orange | Out
 
 type alias Board = Array Block
 
@@ -27,7 +27,7 @@ getBlock : Board -> Int -> Int -> Block
 getBlock b i j =
   case get (boardIndex i j) b of
     Just b -> b
-    Nothing -> Debug.crash "Board access out of bounds"
+    Nothing -> Out
 
 lineStart : Int -> Int
 lineStart i =
