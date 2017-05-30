@@ -1,8 +1,8 @@
-module DrawingTest exposing (..)
+module Test exposing (..)
 
 import Board exposing (..)
 import Tetris exposing (..)
-import TetrisGraphics exposing (..)
+import Graphics exposing (..)
 import Array exposing (..)
 import TetroType exposing (..)
 import Html exposing (Html)
