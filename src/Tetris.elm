@@ -33,7 +33,7 @@ init = (initialModel, Cmd.none)
 initialModel : Model
 initialModel =
     { board     = newBoard
-    , piece   = tetroGenerator
+    , piece   = makeTetro 0
     , seed = Random.initialSeed 2017
     , level = 0
     }
@@ -52,71 +52,285 @@ subscriptions model =
     Keyboard.downs Input
   ]
 
-tetroGenerator : Tetromino
-tetroGenerator =
-    let
-        (random, msg) = Random.step (Random.int 0 6) (Random.initialSeed 2017)
-    in
-    case random of
+makeTetro : Int -> Tetromino
+makeTetro i =
+    case i of
         0 -> { tetro = l_type
-             , current = [(0, 21), (1, 21), (2, 21),(2,22)]
+             , current = [(0,0), (1,0), (2,0),(2,-1)]
              , position = 0
              }
-        _ -> { tetro = l_type
-             , current = [(0, 21), (1, 21), (2,21),(2,22)]
-             , position = 0
-             }
-    {-
         1 -> { tetro = t_type
-             , current = [{0,21), {1,21}, {2,22},{3,21}]
+             , current = [(0,0), (1,0), (1,-1),(2,0)]
              , position = 0
              }
         2 -> { tetro = i_type
-             , current = [{0,21}, {0,22}, {0,23},{0,24}]
+             , current = [(0,0), (1,0), (2,0),(3,0)]
              , position = 0
              }
         3 -> { tetro = o_type
-             , current = [{0,21}, {0,22}, {1,21},{1,22}]
+             , current = [(0,0),(1,0),(1,0),(1,1)]
              , position = 0
              }
         4 -> { tetro = s_type
-             , current = [{0,21}, {1,21}, {1,22},{2,22}]
+             , current = [(0,0),(1,0),(1,-1),(2,-1)]
              , position = 0
              }
         5 -> { tetro = j_type
-             , current = [{0,21}, {0,22}, {1,21},{2,21}]
+             , current = [(0,-1),(0,0),(0,1),(0,2)]
              , position = 0
              }
         6 -> { tetro = z_type
-             , current = [{0,21},{1,21},{1,22},{2,22}]
+             , current = [(0,0),(1,0),(1,1),(2,1)]
              , position = 0
-             } -}
-{-
-down : Tetromino -> Tetromino
-down t =
-    case t of
-        {t, s, c, p} -> {tetro = t
-                        , spawn = s
-                        , current = (List.map (\(x,y) -> (x,y-1)) c)
-                        , position = p
-                        }
--}
+             }
+        _ -> { tetro = l_type
+             , current = [(0,0), (1,0), (2,0),(2,-1)]
+             , position = 0
+             }
+
+rotateTetro: Tetromino -> Tetromino
+rotateTetro t =
+    let
+       (cs_, p_) = rotate t.tetro t.current t.position
+    in
+       {tetro = t.tetro, current = cs_, position = p_}
+
+rotate : TetroType -> List (Int,Int) -> Int -> (List (Int,Int), Int)
+rotate tet cs p =
+    case cs of
+      [(x0,y0),(x1,y1),(x2,y2),(x3,y3)] ->
+                if tet == l_type then
+                        case p of
+                            0 -> ([(x0+1,y0-1),
+                                   (x1,  y1),
+                                   (x2-1,y2+1),
+                                   (x3-1,y3+2)],
+                                   1)
+                            1 -> ([(x0+1,y0+1),
+                                   (x1,  y1),
+                                   (x2-1,y2-1),
+                                   (x3-2,y3)],
+                                   2)
+                            2 -> ([(x0-1,y0+1),
+                                   (x1,  y1),
+                                   (x2+1,y2-1),
+                                   (x3,  y3-2)],
+                                   3)
+                            3 -> ([(x0-1,y0-1),
+                                   (x1,  y1),
+                                   (x2+1,y2+1),
+                                   (x3+2,y3)],
+                                   0)
+                            _ -> (cs, 0)
+                else if tet == t_type then
+                        case p of
+                            0 -> ([(x0+1,y0-1),
+                                     (x1,  y1),
+                                     (x2+1,y2+1),
+                                     (x3-1,y3+1)],
+                                     1)
+                            1 -> ([(x0+1,y0+1),
+                                     (x1,  y1),
+                                     (x2-1,y2+1),
+                                     (x3-1,y3-1)],
+                                     2)
+                            2 -> ([(x0-1,y0+1),
+                                     (x1,  y1),
+                                     (x2-1,y2-1),
+                                     (x3+1,y3-1)],
+                                     3)
+                            3 -> ([(x0-1,y0-1),
+                                     (x1,  y1),
+                                     (x2+1,y2-1),
+                                     (x3+1,y3+1)],
+                                     0)
+                            _ -> (cs, 0)
+                else if tet == i_type then
+                        case p of
+                            0 -> ([(x0+1,y0-1),
+                                     (x1+1,y1),
+                                     (x2,  y2+1),
+                                     (x3-1,y3+2)],
+                                     1)
+                            1 -> ([(x0+1,y0+2),
+                                     (x1,  y1+1),
+                                     (x2-1,y2),
+                                     (x3-2,y3-1)],
+                                     2)
+                            2 -> ([(x0-2,y0+1),
+                                     (x1-1,y1),
+                                     (x2,  y2-1),
+                                     (x3+1,y3-2)],
+                                     3)
+                            3 -> ([(x0-1,y0-2),
+                                     (x1,  y1-1),
+                                     (x2+1,y2),
+                                     (x3+2,y3+1)],
+                                     0)
+                            _ -> (cs, 0)
+
+                else if tet == o_type then (cs,0)
+
+                else if tet == s_type then
+                        case p of
+                            0 -> ([(x0+1,y0-1),
+                                     (x1,  y1),
+                                     (x2+1,y2+1),
+                                     (x3,  y3+2)],
+                                     1)
+                            1 -> ([(x0+1,y0+1),
+                                     (x1,  y1),
+                                     (x2-1,y2+1),
+                                     (x3-1,y3)],
+                                     2)
+                            2 -> ([(x0-1,y0+1),
+                                     (x1,  y1),
+                                     (x2-1,y2-1),
+                                     (x3,  y3-2)],
+                                     3)
+                            3 -> ([(x0-1,y0-1),
+                                     (x1,  y1),
+                                     (x2+1,y2-1),
+                                     (x3+2,y3)],
+                                     0)
+                            _ -> (cs, 0)
+
+                else if tet == j_type then
+                        case p of
+                            0 -> ([(x0+2,y0),
+                                     (x1+1,y1-1),
+                                     (x2,  y2),
+                                     (x3-1,y3+1)],
+                                     1)
+                            1 -> ([(x0,  y0+2),
+                                     (x1+1,y1+1),
+                                     (x2,  y2),
+                                     (x3-1,y3-1)],
+                                     2)
+                            2 -> ([(x0-2,y0),
+                                     (x1-1,y1+1),
+                                     (x2,  y2),
+                                     (x3+1,y3-1)],
+                                     3)
+                            3 -> ([(x0,  y0-2),
+                                     (x1-1,y1-1),
+                                     (x2,  y2),
+                                     (x3+1,y3+1)],
+                                     0)
+                            _ -> (cs, 0)
+
+                else if tet == z_type then
+                        case p of
+                            0 -> ([(x0+2,y0),
+                                     (x1+1,y1+1),
+                                     (x2,  y2),
+                                     (x3-1,y3-1)],
+                                     1)
+                            1 -> ([(x0,  y0+2),
+                                     (x1-1,y1+1),
+                                     (x2,  y2),
+                                     (x3-1,y3-1)],
+                                     2)
+                            2 -> ([(x0-2,y0),
+                                     (x1-1,y1-1),
+                                     (x2,  y2),
+                                     (x3+1,y3-1)],
+                                     3)
+                            3 -> ([(x0,  y0-2),
+                                     (x1+1,y1-1),
+                                     (x2,  y2),
+                                     (x3+1,y3+1)],
+                                     0)
+                            _ -> (cs, 0)
+
+                else (cs, 0)
+      _ -> (cs, 0)
+
+downTetro : Tetromino -> Tetromino
+downTetro t =
+    let
+      cs = down t.current
+    in
+      {tetro = t.tetro, current = cs, position = t.position}
+
+down : List (Int, Int) -> List (Int, Int)
+down cs =
+    case cs of
+        [(x0,y0),(x1,y1),(x2,y2),(x3,y3)] ->
+            List.map (\(x,y)-> (x,y+1)) cs
+        _ -> cs
+
+leftTetro : Tetromino -> Tetromino
+leftTetro t =
+    let
+      cs = left t.current
+    in
+      {tetro = t.tetro, current = cs, position = t.position}
+
+left : List (Int, Int) -> List (Int, Int)
+left cs =
+    case cs of
+        [(x0,y0),(x1,y1),(x2,y2),(x3,y3)] ->
+            List.map (\(x,y)-> (x-1,y)) cs
+        _ -> cs
+
+rightTetro : Tetromino -> Tetromino
+rightTetro t =
+    let
+      cs = right t.current
+    in
+      {tetro = t.tetro, current = cs, position = t.position}
+
+right : List (Int, Int) -> List (Int, Int)
+right cs =
+    case cs of
+        [(x0,y0),(x1,y1),(x2,y2),(x3,y3)] ->
+            List.map (\(x,y)-> (x+1,y)) cs
+        _ -> cs
 
 update : Msg -> Model -> (Model, Cmd Msg)
 update msg model =
     case msg of
         Tick -> ({ model | board = model.board
-                 ,         piece = model.piece
+                 ,         piece = downTetro model.piece
                  ,         seed = model.seed
                  ,         level = model.level
                  }
                  , Cmd.none)
-        Input 37 -> Debug.crash "Left arrow"
-        Input 38 -> Debug.crash "Up arrow"
-        Input 39 -> Debug.crash "Right arrow"
-        Input 40 -> Debug.crash "Down Arrow"
+        Input 37 -> ({ model | board = model.board
+                 ,         piece = leftTetro model.piece
+                 ,         seed = model.seed
+                 ,         level = model.level
+                 }
+                 , Cmd.none)
+        Input 38 -> ({ model | board = model.board
+                 ,         piece = rotateTetro model.piece
+                 ,         seed = model.seed
+                 ,         level = model.level
+                 }
+                 , Cmd.none)
+        Input 39 -> ({ model | board = model.board
+                 ,         piece = rightTetro model.piece
+                 ,         seed = model.seed
+                 ,         level = model.level
+                 }
+                 , Cmd.none)
+        Input 40 -> ({ model | board = model.board
+                 ,         piece = downTetro model.piece
+                 ,         seed = model.seed
+                 ,         level = model.level
+                 }
+                 , Cmd.none)
         Input _  -> (model, Cmd.none)
-        _ -> Debug.crash "TODO"
+        Cycle -> let
+                   (randomInt, newSeed) = Random.step (int 0 6) model.seed
+                 in
+                   ({ model | board = model.board
+                    ,         piece = makeTetro randomInt
+                    ,         seed = newSeed
+                    ,         level = model.level}
+                    , Cmd.none)
+        --_     -> Debug.crash "Not there yet"
 
 view : Model -> Html Msg
 view model =

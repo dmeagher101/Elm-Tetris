@@ -11,12 +11,12 @@ import Time exposing (..)
 import Random exposing (..)
 import Keyboard exposing (..)
 
-type Msg = Tick | Input KeyCode
+type Msg = Tick | Input KeyCode | Cycle
 
 redblueboard = buildBoard altRows
 
 type alias Model =
-    { board : Board
+    {board : Board
     , piece : Tetromino
     , seed : Seed
     , level : Int
@@ -38,8 +38,8 @@ blank =
 
 initialmodel : Model
 initialmodel =
-  { board = redblueboard ,
-    piece = blank,
+  { board = newBoard ,
+    piece = makeTetro 0,
     seed = Random.initialSeed 0,
     level = 1
   }
@@ -88,26 +88,48 @@ update msg model =
 
 update : Msg -> Model -> (Model, Cmd Msg)
 update msg model =
-  let newmodel = {
-    seed = model.seed,
-    piece = model.piece,
-    board = clearLine 19 model.board,
-    level = 1
-    }
-    in
     case msg of
         Tick -> ({ model | board = model.board
-                 ,         piece = model.piece
+                 ,         piece = downTetro model.piece
                  ,         seed = model.seed
                  ,         level = model.level
                  }
                  , Cmd.none)
-        Input 37 -> (newmodel, Cmd.none)
-        Input 38 -> (newmodel, Cmd.none)
-        Input 39 -> (newmodel, Cmd.none)
-        Input 40 -> (newmodel, Cmd.none)
+        Input 37 -> ({ model | board = model.board
+                 ,         piece = leftTetro model.piece
+                 ,         seed = model.seed
+                 ,         level = model.level
+                 }
+                 , Cmd.none)
+        Input 38 -> ({ model | board = model.board
+                 ,         piece = rotateTetro model.piece
+                 ,         seed = model.seed
+                 ,         level = model.level
+                 }
+                 , Cmd.none)
+        Input 39 -> ({ model | board = model.board
+                 ,         piece = rightTetro model.piece
+                 ,         seed = model.seed
+                 ,         level = model.level
+                 }
+                 , Cmd.none)
+        Input 40 -> ({ model | board = model.board
+                 ,         piece = downTetro model.piece
+                 ,         seed = model.seed
+                 ,         level = model.level
+                 }
+                 , Cmd.none)
         Input _  -> (model, Cmd.none)
-        --_ -> Debug.crash "TODO"
+        Cycle -> let
+                   (randomInt, newSeed) = Random.step (int 0 6) model.seed
+                 in
+                   ({ model | board = model.board
+                    ,         piece = makeTetro randomInt
+                    ,         seed = newSeed
+                    ,         level = model.level}
+                    , Cmd.none)
+        --_     -> Debug.crash "Not there yet"
+
 
 main : Program Never Model Msg
 main =
