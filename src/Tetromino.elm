@@ -75,6 +75,22 @@ makeTetro i =
              , position = 0
              }
 
+checkCollision_ : Board -> (Int, Int) -> Bool
+checkCollision_ b (x, y) =
+  (x <= 0) || (x >= 9) || (y >= 19) || ((getBlock b x y) == E)
+
+checkBelow_ : Board -> (Int, Int) -> Bool
+checkBelow_ b (x, y) =
+  let b_ = getBlock b x (y+1) in
+  y >= 19 || b_ /= E || b_ == Out
+
+checkBelow : Board -> List (Int , Int) -> Bool
+checkBelow b ps =
+  case ps of
+    [] -> False
+    _ ->
+      List.foldr (&&) True <| List.map (checkBelow_ b) ps
+
 rotateTetro: Tetromino -> Tetromino
 rotateTetro t =
     let

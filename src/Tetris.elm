@@ -5,7 +5,6 @@ import Time
 import Html exposing (Html)
 import List exposing (..)
 import Keyboard exposing (..)
---import TetroType exposing (..)
 import Board exposing (..)
 import Tetromino exposing (..)
 

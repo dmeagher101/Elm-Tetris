@@ -23,6 +23,7 @@ blockRGB b =
     Red -> rgb 255 0 0
     Blue -> rgb 0 0 255
     Orange -> rgb 255 165 0
+    Out -> rgb 255 255 255
 
 drawBlock : Int -> Block -> Form
 drawBlock i b =
