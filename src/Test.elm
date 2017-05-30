@@ -12,16 +12,19 @@ import Random exposing (..)
 import Keyboard exposing (..)
 import Tetromino exposing (..)
 
-type Msg = Tick | Input KeyCode | Cycle
+type Msg = Tick | Input KeyCode | Cycle | Over | Check
 
 redblueboard = buildBoard altRows
 
 type alias Model =
     {board : Board
     , piece : Tetromino
+    , hold : Maybe Tetromino
+    , next : Tetromino 
     , seed : Seed
     , level : Int
     , floored : Bool
+    , over : Bool
     }
 
 l_start : Tetromino
@@ -42,9 +45,12 @@ initialmodel : Model
 initialmodel =
   { board = newBoard ,
     piece = makeTetro 6,
+    hold = Nothing, 
+    next = makeTetro 2,
     seed = Random.initialSeed 0,
     level = 1,
-    floored = False
+    floored = False,
+    over = False
   }
 
 view : Model -> Html msg
@@ -72,6 +78,9 @@ subscriptions : Model -> Sub Msg
 subscriptions model =
   Sub.batch
   [
+    every (1 * millisecond) (\t -> if (model.floored) then Cycle
+                                     else if (model.over) then Over
+                                     else Check),
     every (1 * second) (\t -> Tick),
     Keyboard.downs Input
   ]
@@ -92,8 +101,43 @@ update msg model =
 update : Msg -> Model -> (Model, Cmd Msg)
 update msg model =
     case msg of
-        Tick -> ({ model | board = model.board
-                 ,         piece = downTetro model.piece
+        Check -> 
+          let 
+            oldPiece = model.piece
+          in 
+            if (checkBelow model.board oldPiece.current)
+            then 
+                ({ model | board = setTetro model.board oldPiece 
+                 ,         piece = oldPiece
+                 ,         seed = model.seed
+                 ,         level = model.level
+                 ,         floored = True
+                 }
+                 , Cmd.none)
+            else
+                ({ model | board = model.board
+                 ,         piece = oldPiece
+                 ,         seed = model.seed
+                 ,         level = model.level
+                 }
+                 , Cmd.none)
+        Tick -> 
+          let 
+            oldPiece = model.piece
+            newPiece = downTetro model.piece
+          in 
+            if (checkBelow model.board oldPiece.current)
+            then 
+                ({ model | board = setTetro model.board oldPiece 
+                 ,         piece = model.piece
+                 ,         seed = model.seed
+                 ,         level = model.level
+                 ,         floored = True
+                 }
+                 , Cmd.none)
+            else 
+                ({ model | board = model.board
+                 ,         piece = newPiece
                  ,         seed = model.seed
                  ,         level = model.level
                  }
@@ -125,12 +169,30 @@ update msg model =
         Input _  -> (model, Cmd.none)
         Cycle -> let
                    (randomInt, newSeed) = Random.step (int 0 6) model.seed
+                   nextPiece = model.next
+                   newPiece = makeTetro randomInt 
                  in
+                 if (checkBelow model.board nextPiece.current)
+                 then 
+                    ({ model | board = setTetro model.board newPiece 
+                     ,         piece = model.piece
+                     ,         over = True
+                     }
+                     , Cmd.none)
+                  else
                    ({ model | board = model.board
-                    ,         piece = makeTetro randomInt
+                    ,         piece = model.next
+                    ,         next = newPiece
                     ,         seed = newSeed
-                    ,         level = model.level}
+                    ,         level = model.level
+                    ,         floored = False 
+                    }
                     , Cmd.none)
+        Over -> ({ model | board = model.board
+                    ,         level = model.level
+                    ,         floored = False 
+                    }
+                  , Cmd.none)
         --_     -> Debug.crash "Not there yet"
 
 

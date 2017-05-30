@@ -93,7 +93,7 @@ checkCollision_ b (x, y) =
 checkBelow_ : Board -> (Int, Int) -> Bool
 checkBelow_ b (x, y) =
   let b_ = getBlock b x (y+1) in
-  y >= 19 || b_ /= E || b_ == Out
+  y >= 18 || b_ /= E || b_ == Out
 
 checkBelow : Board -> List (Int , Int) -> Bool
 checkBelow b ps =
@@ -290,8 +290,11 @@ leftTetro : Tetromino -> Tetromino
 leftTetro t =
     let
       cs = left t.current
+      new = if (List.isEmpty (List.filter (\(x,y)->x<0) cs))
+            then cs
+            else t.current
     in
-      {tetro = t.tetro, current = cs, position = t.position}
+      {tetro = t.tetro, current = new, position = t.position}
 
 left : List (Int, Int) -> List (Int, Int)
 left cs =
@@ -304,8 +307,11 @@ rightTetro : Tetromino -> Tetromino
 rightTetro t =
     let
       cs = right t.current
+      new = if (List.isEmpty (List.filter (\(x,y)->x>=10) cs))
+            then cs
+            else t.current
     in
-      {tetro = t.tetro, current = cs, position = t.position}
+      {tetro = t.tetro, current = new, position = t.position}
 
 right : List (Int, Int) -> List (Int, Int)
 right cs =
@@ -313,3 +319,4 @@ right cs =
         [(x0,y0),(x1,y1),(x2,y2),(x3,y3)] ->
             List.map (\(x,y)-> (x+1,y)) cs
         _ -> cs
+
