@@ -9,9 +9,9 @@ import Html exposing (Html)
 import Element exposing (..)
 import Time exposing (..)
 import Random exposing (..)
+import Keyboard exposing (..)
 
-
-type Msg = Tick Time
+type Msg = Tick | Input KeyCode
 
 redblueboard = buildBoard altRows
 
@@ -67,20 +67,47 @@ altBlocks i =
 
 subscriptions : Model -> Sub Msg
 subscriptions model =
-  every (1 * second) Tick
+  Sub.batch
+  [
+    every (1 * second) (\t -> Tick),
+    Keyboard.downs Input
+  ]
 
-update : Msg -> Model -> (Model, Cmd Msg)
+{--update : Msg -> Model -> (Model, Cmd Msg)
 update msg model =
   let
     newmodel = {
       seed = model.seed,
       piece = model.piece,
-      board = clearLine 19 model.board,
+      board = clearLine 10 model.board,
       level = 1
   }
   in
     case msg of
-      Tick t -> (newmodel, Cmd.none)
+      Tick t -> (newmodel, Cmd.none)--}
+
+update : Msg -> Model -> (Model, Cmd Msg)
+update msg model =
+  let newmodel = {
+    seed = model.seed,
+    piece = model.piece,
+    board = clearLine 19 model.board,
+    level = 1
+    }
+    in
+    case msg of
+        Tick -> ({ model | board = model.board
+                 ,         piece = model.piece
+                 ,         seed = model.seed
+                 ,         level = model.level
+                 }
+                 , Cmd.none)
+        Input 37 -> (newmodel, Cmd.none)
+        Input 38 -> (newmodel, Cmd.none)
+        Input 39 -> (newmodel, Cmd.none)
+        Input 40 -> (newmodel, Cmd.none)
+        Input _  -> (model, Cmd.none)
+        --_ -> Debug.crash "TODO"
 
 main : Program Never Model Msg
 main =
