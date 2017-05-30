@@ -7,6 +7,7 @@ import Board exposing (..)
 import Collage exposing (..)
 import Array exposing (..)
 import Element exposing (..)
+import Text exposing (..)
 --import Svg exposing (..)
 
 pixWidth = 200
@@ -59,7 +60,45 @@ drawBoard b =
   let sz = (3 * pixWidth) in
   collage sz sz (toForms b)
 
-drawGame : Board -> Tetromino -> Element
-drawGame b t =
+nextShift : (Int, Int) -> (Int, Int)
+nextShift (x,y) =
+  (x+11, y+3)
+
+drawNext : Tetromino -> (List Form)
+drawNext t =
+  let
+    ps_ = List.map nextShift t.current
+    t_ = { tetro = t.tetro, current = ps_, position = t.position}
+    w = fromString "Next"
+    wForm = scale 1.5 <| move (pixWidth*1.2, pixWidth ) <| text w
+  in
+    wForm::(drawTetromino t_)
+
+holdShift : (Int, Int) -> (Int, Int)
+holdShift (x,y) =
+  (x-4, y+3)
+
+drawHold : Maybe Tetromino -> (List Form)
+drawHold h =
+  case h of
+    Nothing -> []
+    Just t ->
+      let
+        ps_ = List.map holdShift t.current
+        t_ = { tetro = t.tetro, current = ps_, position = t.position}
+        w = fromString "Hold"
+        wForm = scale 1.5 <| move (-(pixWidth*0.35), pixWidth) <| text w
+      in
+        wForm::drawTetromino t_
+
+drawTitle : (List Form)
+drawTitle =
+  let
+    w = fromString "Daniel and Hadi's Super Awesome Tetris in Elm"
+  in
+    [scale 3 <| move (pixWidth * 0.5, pixWidth * 1.3) <| text w]
+
+drawGame : Board -> Tetromino -> Tetromino -> Maybe Tetromino -> Element
+drawGame b t n h =
   let sz = (3 * pixWidth) in
-  collage sz sz (toForms b ++ drawTetromino t)
+  collage (floor (sz * 1.8)) sz (toForms b ++ drawTetromino t ++ drawNext n ++ drawHold h ++ drawTitle)

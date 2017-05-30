@@ -45,7 +45,7 @@ initialmodel : Model
 initialmodel =
   { board = newBoard ,
     piece = makeTetro 6,
-    hold = Nothing,
+    hold = Just <| makeTetro 3,
     next = makeTetro 2,
     seed = Random.initialSeed 0,
     level = 1,
@@ -55,7 +55,7 @@ initialmodel =
 
 view : Model -> Html msg
 view model =
-  toHtml <| drawGame model.board <| model.piece
+  toHtml <| (drawGame model.board model.piece model.next model.hold)
 
 init : (Model, Cmd Msg)
 init = (initialmodel, Cmd.none)
