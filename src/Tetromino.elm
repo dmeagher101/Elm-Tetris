@@ -93,14 +93,14 @@ checkCollision_ b (x, y) =
 checkBelow_ : Board -> (Int, Int) -> Bool
 checkBelow_ b (x, y) =
   let b_ = getBlock b x (y+1) in
-  y >= 18 || b_ /= E || b_ == Out
+  (y + 1) >= 20 || b_ /= E || b_ == Out
 
 checkBelow : Board -> List (Int , Int) -> Bool
 checkBelow b ps =
   case ps of
     [] -> False
     _ ->
-      List.foldr (&&) True <| List.map (checkBelow_ b) ps
+      List.foldr (||) False <| List.map (checkBelow_ b) ps
 
 setTetro : Board -> Tetromino -> Board
 setTetro b t =
@@ -111,7 +111,7 @@ setTetro_ bl bo ps =
   case ps of
     [] -> bo
     (x,y)::tl ->
-      let bo_ = setBlock bl bo x y in
+      let bo_ = setBlock bl bo x (y-1) in
       setTetro_ bl bo_ tl
 
 rotateTetro: Tetromino -> Tetromino
@@ -319,4 +319,3 @@ right cs =
         [(x0,y0),(x1,y1),(x2,y2),(x3,y3)] ->
             List.map (\(x,y)-> (x+1,y)) cs
         _ -> cs
-

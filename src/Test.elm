@@ -20,7 +20,7 @@ type alias Model =
     {board : Board
     , piece : Tetromino
     , hold : Maybe Tetromino
-    , next : Tetromino 
+    , next : Tetromino
     , seed : Seed
     , level : Int
     , floored : Bool
@@ -45,7 +45,7 @@ initialmodel : Model
 initialmodel =
   { board = newBoard ,
     piece = makeTetro 6,
-    hold = Nothing, 
+    hold = Nothing,
     next = makeTetro 2,
     seed = Random.initialSeed 0,
     level = 1,
@@ -101,13 +101,13 @@ update msg model =
 update : Msg -> Model -> (Model, Cmd Msg)
 update msg model =
     case msg of
-        Check -> 
-          let 
+        Check ->
+          let
             oldPiece = model.piece
-          in 
+          in
             if (checkBelow model.board oldPiece.current)
-            then 
-                ({ model | board = setTetro model.board oldPiece 
+            then
+                ({ model | board = setTetro model.board (downTetro oldPiece)
                  ,         piece = oldPiece
                  ,         seed = model.seed
                  ,         level = model.level
@@ -121,21 +121,21 @@ update msg model =
                  ,         level = model.level
                  }
                  , Cmd.none)
-        Tick -> 
-          let 
+        Tick ->
+          let
             oldPiece = model.piece
             newPiece = downTetro model.piece
-          in 
+          in
             if (checkBelow model.board oldPiece.current)
-            then 
-                ({ model | board = setTetro model.board oldPiece 
+            then
+                ({ model | board = setTetro model.board oldPiece
                  ,         piece = model.piece
                  ,         seed = model.seed
                  ,         level = model.level
                  ,         floored = True
                  }
                  , Cmd.none)
-            else 
+            else
                 ({ model | board = model.board
                  ,         piece = newPiece
                  ,         seed = model.seed
@@ -170,11 +170,11 @@ update msg model =
         Cycle -> let
                    (randomInt, newSeed) = Random.step (int 0 6) model.seed
                    nextPiece = model.next
-                   newPiece = makeTetro randomInt 
+                   newPiece = makeTetro randomInt
                  in
                  if (checkBelow model.board nextPiece.current)
-                 then 
-                    ({ model | board = setTetro model.board newPiece 
+                 then
+                    ({ model | board = setTetro model.board newPiece
                      ,         piece = model.piece
                      ,         over = True
                      }
@@ -185,12 +185,12 @@ update msg model =
                     ,         next = newPiece
                     ,         seed = newSeed
                     ,         level = model.level
-                    ,         floored = False 
+                    ,         floored = False
                     }
                     , Cmd.none)
         Over -> ({ model | board = model.board
                     ,         level = model.level
-                    ,         floored = False 
+                    ,         floored = False
                     }
                   , Cmd.none)
         --_     -> Debug.crash "Not there yet"
