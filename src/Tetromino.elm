@@ -296,3 +296,4 @@ right cs =
         [(x0,y0),(x1,y1),(x2,y2),(x3,y3)] ->
             List.map (\(x,y)-> (x+1,y)) cs
         _ -> cs
+

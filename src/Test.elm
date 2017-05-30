@@ -92,8 +92,21 @@ update msg model =
 update : Msg -> Model -> (Model, Cmd Msg)
 update msg model =
     case msg of
-        Tick -> ({ model | board = model.board
-                 ,         piece = downTetro model.piece
+        Tick -> 
+          let 
+            newPiece = downTetro model.piece
+          in 
+            if (checkBelow model.board newPiece.current)
+            then 
+                ({ model | board = model.board 
+                 ,         piece = model.piece
+                 ,         seed = model.seed
+                 ,         level = model.level
+                 }
+                 , Cmd.none)
+            else
+                ({ model | board = model.board
+                 ,         piece = newPiece
                  ,         seed = model.seed
                  ,         level = model.level
                  }
