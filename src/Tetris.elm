@@ -68,7 +68,7 @@ makeTetro i =
              , position = 0
              }
         3 -> { tetro = o_type
-             , current = [(0,0),(1,0),(1,0),(1,1)]
+             , current = [(0,0),(1,0),(0,1),(1,1)]
              , position = 0
              }
         4 -> { tetro = s_type
@@ -76,7 +76,7 @@ makeTetro i =
              , position = 0
              }
         5 -> { tetro = j_type
-             , current = [(0,-1),(0,0),(0,1),(0,2)]
+             , current = [(0,-1),(0,0),(1,0),(2,0)]
              , position = 0
              }
         6 -> { tetro = z_type
@@ -104,7 +104,7 @@ rotate tet cs p =
                             0 -> ([(x0+1,y0-1),
                                    (x1,  y1),
                                    (x2-1,y2+1),
-                                   (x3-1,y3+2)],
+                                   (x3  ,y3+2)],
                                    1)
                             1 -> ([(x0+1,y0+1),
                                    (x1,  y1),
@@ -147,7 +147,7 @@ rotate tet cs p =
                             _ -> (cs, 0)
                 else if tet == i_type then
                         case p of
-                            0 -> ([(x0+1,y0-1),
+                            0 -> ([(x0+2,y0-1),
                                      (x1+1,y1),
                                      (x2,  y2+1),
                                      (x3-1,y3+2)],
@@ -181,7 +181,7 @@ rotate tet cs p =
                             1 -> ([(x0+1,y0+1),
                                      (x1,  y1),
                                      (x2-1,y2+1),
-                                     (x3-1,y3)],
+                                     (x3-2,y3)],
                                      2)
                             2 -> ([(x0-1,y0+1),
                                      (x1,  y1),
@@ -224,7 +224,7 @@ rotate tet cs p =
                             0 -> ([(x0+2,y0),
                                      (x1+1,y1+1),
                                      (x2,  y2),
-                                     (x3-1,y3-1)],
+                                     (x3-1,y3+1)],
                                      1)
                             1 -> ([(x0,  y0+2),
                                      (x1-1,y1+1),

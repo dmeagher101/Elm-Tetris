@@ -1,0 +1,171 @@
+var _user$project$Test$update = F2(
+	function (msg, model) {
+		var _p0 = msg;
+		switch (_p0.ctor) {
+			case 'Tick':
+				return {
+					ctor: '_Tuple2',
+					_0: _elm_lang$core$Native_Utils.update(
+						model,
+						{
+							board: model.board,
+							piece: _user$project$Tetris$downTetro(model.piece),
+							seed: model.seed,
+							level: model.level
+						}),
+					_1: _elm_lang$core$Platform_Cmd$none
+				};
+			case 'Input':
+				switch (_p0._0) {
+					case 37:
+						return {
+							ctor: '_Tuple2',
+							_0: _elm_lang$core$Native_Utils.update(
+								model,
+								{
+									board: model.board,
+									piece: _user$project$Tetris$leftTetro(model.piece),
+									seed: model.seed,
+									level: model.level
+								}),
+							_1: _elm_lang$core$Platform_Cmd$none
+						};
+					case 38:
+						return {
+							ctor: '_Tuple2',
+							_0: _elm_lang$core$Native_Utils.update(
+								model,
+								{
+									board: model.board,
+									piece: _user$project$Tetris$rotateTetro(model.piece),
+									seed: model.seed,
+									level: model.level
+								}),
+							_1: _elm_lang$core$Platform_Cmd$none
+						};
+					case 39:
+						return {
+							ctor: '_Tuple2',
+							_0: _elm_lang$core$Native_Utils.update(
+								model,
+								{
+									board: model.board,
+									piece: _user$project$Tetris$rightTetro(model.piece),
+									seed: model.seed,
+									level: model.level
+								}),
+							_1: _elm_lang$core$Platform_Cmd$none
+						};
+					case 40:
+						return {
+							ctor: '_Tuple2',
+							_0: _elm_lang$core$Native_Utils.update(
+								model,
+								{
+									board: model.board,
+									piece: _user$project$Tetris$downTetro(model.piece),
+									seed: model.seed,
+									level: model.level
+								}),
+							_1: _elm_lang$core$Platform_Cmd$none
+						};
+					default:
+						return {ctor: '_Tuple2', _0: model, _1: _elm_lang$core$Platform_Cmd$none};
+				}
+			default:
+				var _p1 = A2(
+					_elm_lang$core$Random$step,
+					A2(_elm_lang$core$Random$int, 0, 6),
+					model.seed);
+				var randomInt = _p1._0;
+				var newSeed = _p1._1;
+				return {
+					ctor: '_Tuple2',
+					_0: _elm_lang$core$Native_Utils.update(
+						model,
+						{
+							board: model.board,
+							piece: _user$project$Tetris$makeTetro(randomInt),
+							seed: newSeed,
+							level: model.level
+						}),
+					_1: _elm_lang$core$Platform_Cmd$none
+				};
+		}
+	});
+var _user$project$Test$altBlocks = function (i) {
+	return _elm_lang$core$Native_Utils.eq(
+		A2(_elm_lang$core$Basics_ops['%'], i, 2),
+		0) ? _user$project$Board$Blue : _user$project$Board$Red;
+};
+var _user$project$Test$altRows = function (i) {
+	return _elm_lang$core$Native_Utils.eq(
+		A2(_elm_lang$core$Basics_ops['%'], (i / 10) | 0, 2),
+		0) ? _user$project$Board$Blue : _user$project$Board$Red;
+};
+var _user$project$Test$view = function (model) {
+	return _evancz$elm_graphics$Element$toHtml(
+		A2(_user$project$Graphics$drawGame, model.board, model.piece));
+};
+var _user$project$Test$initialmodel = {
+	board: _user$project$Board$newBoard,
+	piece: _user$project$Tetris$makeTetro(5),
+	seed: _elm_lang$core$Random$initialSeed(0),
+	level: 0
+};
+var _user$project$Test$init = {ctor: '_Tuple2', _0: _user$project$Test$initialmodel, _1: _elm_lang$core$Platform_Cmd$none};
+var _user$project$Test$blank = {
+	tetro: _user$project$TetroType$l_type,
+	current: {ctor: '[]'},
+	position: 0
+};
+var _user$project$Test$l_start = {
+	tetro: _user$project$TetroType$l_type,
+	current: {
+		ctor: '::',
+		_0: {ctor: '_Tuple2', _0: 0, _1: 0},
+		_1: {
+			ctor: '::',
+			_0: {ctor: '_Tuple2', _0: 1, _1: 0},
+			_1: {
+				ctor: '::',
+				_0: {ctor: '_Tuple2', _0: 2, _1: 0},
+				_1: {
+					ctor: '::',
+					_0: {ctor: '_Tuple2', _0: 2, _1: 1},
+					_1: {ctor: '[]'}
+				}
+			}
+		}
+	},
+	position: 0
+};
+var _user$project$Test$redblueboard = _user$project$Board$buildBoard(_user$project$Test$altRows);
+var _user$project$Test$Model = F4(
+	function (a, b, c, d) {
+		return {board: a, piece: b, seed: c, level: d};
+	});
+var _user$project$Test$Cycle = {ctor: 'Cycle'};
+var _user$project$Test$Input = function (a) {
+	return {ctor: 'Input', _0: a};
+};
+var _user$project$Test$Tick = {ctor: 'Tick'};
+var _user$project$Test$subscriptions = function (model) {
+	return _elm_lang$core$Platform_Sub$batch(
+		{
+			ctor: '::',
+			_0: A2(
+				_elm_lang$core$Time$every,
+				1 * _elm_lang$core$Time$second,
+				function (t) {
+					return _user$project$Test$Tick;
+				}),
+			_1: {
+				ctor: '::',
+				_0: _elm_lang$keyboard$Keyboard$downs(_user$project$Test$Input),
+				_1: {ctor: '[]'}
+			}
+		});
+};
+var _user$project$Test$main = _elm_lang$html$Html$program(
+	{init: _user$project$Test$init, subscriptions: _user$project$Test$subscriptions, view: _user$project$Test$view, update: _user$project$Test$update})();

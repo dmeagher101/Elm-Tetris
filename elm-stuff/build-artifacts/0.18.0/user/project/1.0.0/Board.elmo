@@ -1,0 +1,110 @@
+var _user$project$Board$checkEmpty = function (b) {
+	var _p0 = b;
+	if (_p0.ctor === 'E') {
+		return true;
+	} else {
+		return false;
+	}
+};
+var _user$project$Board$boardIndex = F2(
+	function (i, j) {
+		return (j * 10) + i;
+	});
+var _user$project$Board$getBlock = F3(
+	function (b, i, j) {
+		var _p1 = A2(
+			_elm_lang$core$Array$get,
+			A2(_user$project$Board$boardIndex, i, j),
+			b);
+		if (_p1.ctor === 'Just') {
+			return _p1._0;
+		} else {
+			return _elm_lang$core$Native_Utils.crashCase(
+				'Board',
+				{
+					start: {line: 28, column: 3},
+					end: {line: 30, column: 56}
+				},
+				_p1)('Board access out of bounds');
+		}
+	});
+var _user$project$Board$lineStart = function (i) {
+	return A2(_user$project$Board$boardIndex, 0, i);
+};
+var _user$project$Board$checkFull = F2(
+	function (b, i) {
+		var ri = _user$project$Board$lineStart(i);
+		var l = A2(
+			_elm_lang$core$Array$filter,
+			_user$project$Board$checkEmpty,
+			A3(_elm_lang$core$Array$slice, ri, ri + 9, b));
+		return _elm_lang$core$Array$isEmpty(l);
+	});
+var _user$project$Board$lineEnd = function (i) {
+	return _user$project$Board$lineStart(i) + 9;
+};
+var _user$project$Board$setBlock = F4(
+	function (bl, bo, i, j) {
+		return A3(
+			_elm_lang$core$Array$set,
+			A2(_user$project$Board$boardIndex, i, j),
+			bl,
+			bo);
+	});
+var _user$project$Board$height = 20;
+var _user$project$Board$width = 10;
+var _user$project$Board$buildBoard = function (f) {
+	return A2(_elm_lang$core$Array$initialize, _user$project$Board$width * _user$project$Board$height, f);
+};
+var _user$project$Board$Orange = {ctor: 'Orange'};
+var _user$project$Board$Blue = {ctor: 'Blue'};
+var _user$project$Board$Red = {ctor: 'Red'};
+var _user$project$Board$Green = {ctor: 'Green'};
+var _user$project$Board$Purple = {ctor: 'Purple'};
+var _user$project$Board$Yellow = {ctor: 'Yellow'};
+var _user$project$Board$Cyan = {ctor: 'Cyan'};
+var _user$project$Board$E = {ctor: 'E'};
+var _user$project$Board$newBoard = A2(_elm_lang$core$Array$repeat, 10 * 20, _user$project$Board$E);
+var _user$project$Board$clearLine = F2(
+	function (i, b) {
+		var emptyline = A2(_elm_lang$core$Array$repeat, 10, _user$project$Board$E);
+		var $new = _user$project$Board$lineStart(i + 1);
+		var bottom = (_elm_lang$core$Native_Utils.cmp(i, 19) > -1) ? _elm_lang$core$Array$empty : A3(_elm_lang$core$Array$slice, $new, _user$project$Board$height * _user$project$Board$width, b);
+		var end = _user$project$Board$lineStart(i);
+		var top = A3(_elm_lang$core$Array$slice, 0, end, b);
+		return A2(
+			_elm_lang$core$Array$append,
+			emptyline,
+			A2(_elm_lang$core$Array$append, top, bottom));
+	});
+var _user$project$Board$checkFulls = F3(
+	function (i, acc, b) {
+		checkFulls:
+		while (true) {
+			if (_elm_lang$core$Native_Utils.eq(acc, 4)) {
+				return {
+					ctor: '_Tuple2',
+					_0: b,
+					_1: {ctor: '[]'}
+				};
+			} else {
+				if (A2(_user$project$Board$checkFull, b, i)) {
+					var _v2 = i,
+						_v3 = acc + 1,
+						_v4 = A2(_user$project$Board$clearLine, i, b);
+					i = _v2;
+					acc = _v3;
+					b = _v4;
+					continue checkFulls;
+				} else {
+					var _v5 = i + 1,
+						_v6 = 0,
+						_v7 = b;
+					i = _v5;
+					acc = _v6;
+					b = _v7;
+					continue checkFulls;
+				}
+			}
+		}
+	});

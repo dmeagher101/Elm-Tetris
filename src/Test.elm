@@ -39,9 +39,9 @@ blank =
 initialmodel : Model
 initialmodel =
   { board = newBoard ,
-    piece = makeTetro 0,
+    piece = makeTetro 5,
     seed = Random.initialSeed 0,
-    level = 1
+    level = 0
   }
 
 view : Model -> Html msg

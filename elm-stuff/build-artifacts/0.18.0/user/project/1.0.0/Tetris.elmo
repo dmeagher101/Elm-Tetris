@@ -1,0 +1,1017 @@
+var _user$project$Tetris$view = function (model) {
+	return _elm_lang$core$Native_Utils.crash(
+		'Tetris',
+		{
+			start: {line: 337, column: 5},
+			end: {line: 337, column: 16}
+		})('TODO');
+};
+var _user$project$Tetris$right = function (cs) {
+	var _p0 = cs;
+	if (((((((((_p0.ctor === '::') && (_p0._0.ctor === '_Tuple2')) && (_p0._1.ctor === '::')) && (_p0._1._0.ctor === '_Tuple2')) && (_p0._1._1.ctor === '::')) && (_p0._1._1._0.ctor === '_Tuple2')) && (_p0._1._1._1.ctor === '::')) && (_p0._1._1._1._0.ctor === '_Tuple2')) && (_p0._1._1._1._1.ctor === '[]')) {
+		return A2(
+			_elm_lang$core$List$map,
+			function (_p1) {
+				var _p2 = _p1;
+				return {ctor: '_Tuple2', _0: _p2._0 + 1, _1: _p2._1};
+			},
+			cs);
+	} else {
+		return cs;
+	}
+};
+var _user$project$Tetris$rightTetro = function (t) {
+	var cs = _user$project$Tetris$right(t.current);
+	return {tetro: t.tetro, current: cs, position: t.position};
+};
+var _user$project$Tetris$left = function (cs) {
+	var _p3 = cs;
+	if (((((((((_p3.ctor === '::') && (_p3._0.ctor === '_Tuple2')) && (_p3._1.ctor === '::')) && (_p3._1._0.ctor === '_Tuple2')) && (_p3._1._1.ctor === '::')) && (_p3._1._1._0.ctor === '_Tuple2')) && (_p3._1._1._1.ctor === '::')) && (_p3._1._1._1._0.ctor === '_Tuple2')) && (_p3._1._1._1._1.ctor === '[]')) {
+		return A2(
+			_elm_lang$core$List$map,
+			function (_p4) {
+				var _p5 = _p4;
+				return {ctor: '_Tuple2', _0: _p5._0 - 1, _1: _p5._1};
+			},
+			cs);
+	} else {
+		return cs;
+	}
+};
+var _user$project$Tetris$leftTetro = function (t) {
+	var cs = _user$project$Tetris$left(t.current);
+	return {tetro: t.tetro, current: cs, position: t.position};
+};
+var _user$project$Tetris$down = function (cs) {
+	var _p6 = cs;
+	if (((((((((_p6.ctor === '::') && (_p6._0.ctor === '_Tuple2')) && (_p6._1.ctor === '::')) && (_p6._1._0.ctor === '_Tuple2')) && (_p6._1._1.ctor === '::')) && (_p6._1._1._0.ctor === '_Tuple2')) && (_p6._1._1._1.ctor === '::')) && (_p6._1._1._1._0.ctor === '_Tuple2')) && (_p6._1._1._1._1.ctor === '[]')) {
+		return A2(
+			_elm_lang$core$List$map,
+			function (_p7) {
+				var _p8 = _p7;
+				return {ctor: '_Tuple2', _0: _p8._0, _1: _p8._1 + 1};
+			},
+			cs);
+	} else {
+		return cs;
+	}
+};
+var _user$project$Tetris$downTetro = function (t) {
+	var cs = _user$project$Tetris$down(t.current);
+	return {tetro: t.tetro, current: cs, position: t.position};
+};
+var _user$project$Tetris$rotate = F3(
+	function (tet, cs, p) {
+		var _p9 = cs;
+		if (((((((((_p9.ctor === '::') && (_p9._0.ctor === '_Tuple2')) && (_p9._1.ctor === '::')) && (_p9._1._0.ctor === '_Tuple2')) && (_p9._1._1.ctor === '::')) && (_p9._1._1._0.ctor === '_Tuple2')) && (_p9._1._1._1.ctor === '::')) && (_p9._1._1._1._0.ctor === '_Tuple2')) && (_p9._1._1._1._1.ctor === '[]')) {
+			var _p23 = _p9._1._1._1._0._1;
+			var _p22 = _p9._1._1._0._1;
+			var _p21 = _p9._1._0._1;
+			var _p20 = _p9._0._1;
+			var _p19 = _p9._1._1._1._0._0;
+			var _p18 = _p9._1._1._0._0;
+			var _p17 = _p9._1._0._0;
+			var _p16 = _p9._0._0;
+			if (_elm_lang$core$Native_Utils.eq(tet, _user$project$TetroType$l_type)) {
+				var _p10 = p;
+				switch (_p10) {
+					case 0:
+						return {
+							ctor: '_Tuple2',
+							_0: {
+								ctor: '::',
+								_0: {ctor: '_Tuple2', _0: _p16 + 1, _1: _p20 - 1},
+								_1: {
+									ctor: '::',
+									_0: {ctor: '_Tuple2', _0: _p17, _1: _p21},
+									_1: {
+										ctor: '::',
+										_0: {ctor: '_Tuple2', _0: _p18 - 1, _1: _p22 + 1},
+										_1: {
+											ctor: '::',
+											_0: {ctor: '_Tuple2', _0: _p19, _1: _p23 + 2},
+											_1: {ctor: '[]'}
+										}
+									}
+								}
+							},
+							_1: 1
+						};
+					case 1:
+						return {
+							ctor: '_Tuple2',
+							_0: {
+								ctor: '::',
+								_0: {ctor: '_Tuple2', _0: _p16 + 1, _1: _p20 + 1},
+								_1: {
+									ctor: '::',
+									_0: {ctor: '_Tuple2', _0: _p17, _1: _p21},
+									_1: {
+										ctor: '::',
+										_0: {ctor: '_Tuple2', _0: _p18 - 1, _1: _p22 - 1},
+										_1: {
+											ctor: '::',
+											_0: {ctor: '_Tuple2', _0: _p19 - 2, _1: _p23},
+											_1: {ctor: '[]'}
+										}
+									}
+								}
+							},
+							_1: 2
+						};
+					case 2:
+						return {
+							ctor: '_Tuple2',
+							_0: {
+								ctor: '::',
+								_0: {ctor: '_Tuple2', _0: _p16 - 1, _1: _p20 + 1},
+								_1: {
+									ctor: '::',
+									_0: {ctor: '_Tuple2', _0: _p17, _1: _p21},
+									_1: {
+										ctor: '::',
+										_0: {ctor: '_Tuple2', _0: _p18 + 1, _1: _p22 - 1},
+										_1: {
+											ctor: '::',
+											_0: {ctor: '_Tuple2', _0: _p19, _1: _p23 - 2},
+											_1: {ctor: '[]'}
+										}
+									}
+								}
+							},
+							_1: 3
+						};
+					case 3:
+						return {
+							ctor: '_Tuple2',
+							_0: {
+								ctor: '::',
+								_0: {ctor: '_Tuple2', _0: _p16 - 1, _1: _p20 - 1},
+								_1: {
+									ctor: '::',
+									_0: {ctor: '_Tuple2', _0: _p17, _1: _p21},
+									_1: {
+										ctor: '::',
+										_0: {ctor: '_Tuple2', _0: _p18 + 1, _1: _p22 + 1},
+										_1: {
+											ctor: '::',
+											_0: {ctor: '_Tuple2', _0: _p19 + 2, _1: _p23},
+											_1: {ctor: '[]'}
+										}
+									}
+								}
+							},
+							_1: 0
+						};
+					default:
+						return {ctor: '_Tuple2', _0: cs, _1: 0};
+				}
+			} else {
+				if (_elm_lang$core$Native_Utils.eq(tet, _user$project$TetroType$t_type)) {
+					var _p11 = p;
+					switch (_p11) {
+						case 0:
+							return {
+								ctor: '_Tuple2',
+								_0: {
+									ctor: '::',
+									_0: {ctor: '_Tuple2', _0: _p16 + 1, _1: _p20 - 1},
+									_1: {
+										ctor: '::',
+										_0: {ctor: '_Tuple2', _0: _p17, _1: _p21},
+										_1: {
+											ctor: '::',
+											_0: {ctor: '_Tuple2', _0: _p18 + 1, _1: _p22 + 1},
+											_1: {
+												ctor: '::',
+												_0: {ctor: '_Tuple2', _0: _p19 - 1, _1: _p23 + 1},
+												_1: {ctor: '[]'}
+											}
+										}
+									}
+								},
+								_1: 1
+							};
+						case 1:
+							return {
+								ctor: '_Tuple2',
+								_0: {
+									ctor: '::',
+									_0: {ctor: '_Tuple2', _0: _p16 + 1, _1: _p20 + 1},
+									_1: {
+										ctor: '::',
+										_0: {ctor: '_Tuple2', _0: _p17, _1: _p21},
+										_1: {
+											ctor: '::',
+											_0: {ctor: '_Tuple2', _0: _p18 - 1, _1: _p22 + 1},
+											_1: {
+												ctor: '::',
+												_0: {ctor: '_Tuple2', _0: _p19 - 1, _1: _p23 - 1},
+												_1: {ctor: '[]'}
+											}
+										}
+									}
+								},
+								_1: 2
+							};
+						case 2:
+							return {
+								ctor: '_Tuple2',
+								_0: {
+									ctor: '::',
+									_0: {ctor: '_Tuple2', _0: _p16 - 1, _1: _p20 + 1},
+									_1: {
+										ctor: '::',
+										_0: {ctor: '_Tuple2', _0: _p17, _1: _p21},
+										_1: {
+											ctor: '::',
+											_0: {ctor: '_Tuple2', _0: _p18 - 1, _1: _p22 - 1},
+											_1: {
+												ctor: '::',
+												_0: {ctor: '_Tuple2', _0: _p19 + 1, _1: _p23 - 1},
+												_1: {ctor: '[]'}
+											}
+										}
+									}
+								},
+								_1: 3
+							};
+						case 3:
+							return {
+								ctor: '_Tuple2',
+								_0: {
+									ctor: '::',
+									_0: {ctor: '_Tuple2', _0: _p16 - 1, _1: _p20 - 1},
+									_1: {
+										ctor: '::',
+										_0: {ctor: '_Tuple2', _0: _p17, _1: _p21},
+										_1: {
+											ctor: '::',
+											_0: {ctor: '_Tuple2', _0: _p18 + 1, _1: _p22 - 1},
+											_1: {
+												ctor: '::',
+												_0: {ctor: '_Tuple2', _0: _p19 + 1, _1: _p23 + 1},
+												_1: {ctor: '[]'}
+											}
+										}
+									}
+								},
+								_1: 0
+							};
+						default:
+							return {ctor: '_Tuple2', _0: cs, _1: 0};
+					}
+				} else {
+					if (_elm_lang$core$Native_Utils.eq(tet, _user$project$TetroType$i_type)) {
+						var _p12 = p;
+						switch (_p12) {
+							case 0:
+								return {
+									ctor: '_Tuple2',
+									_0: {
+										ctor: '::',
+										_0: {ctor: '_Tuple2', _0: _p16 + 2, _1: _p20 - 1},
+										_1: {
+											ctor: '::',
+											_0: {ctor: '_Tuple2', _0: _p17 + 1, _1: _p21},
+											_1: {
+												ctor: '::',
+												_0: {ctor: '_Tuple2', _0: _p18, _1: _p22 + 1},
+												_1: {
+													ctor: '::',
+													_0: {ctor: '_Tuple2', _0: _p19 - 1, _1: _p23 + 2},
+													_1: {ctor: '[]'}
+												}
+											}
+										}
+									},
+									_1: 1
+								};
+							case 1:
+								return {
+									ctor: '_Tuple2',
+									_0: {
+										ctor: '::',
+										_0: {ctor: '_Tuple2', _0: _p16 + 1, _1: _p20 + 2},
+										_1: {
+											ctor: '::',
+											_0: {ctor: '_Tuple2', _0: _p17, _1: _p21 + 1},
+											_1: {
+												ctor: '::',
+												_0: {ctor: '_Tuple2', _0: _p18 - 1, _1: _p22},
+												_1: {
+													ctor: '::',
+													_0: {ctor: '_Tuple2', _0: _p19 - 2, _1: _p23 - 1},
+													_1: {ctor: '[]'}
+												}
+											}
+										}
+									},
+									_1: 2
+								};
+							case 2:
+								return {
+									ctor: '_Tuple2',
+									_0: {
+										ctor: '::',
+										_0: {ctor: '_Tuple2', _0: _p16 - 2, _1: _p20 + 1},
+										_1: {
+											ctor: '::',
+											_0: {ctor: '_Tuple2', _0: _p17 - 1, _1: _p21},
+											_1: {
+												ctor: '::',
+												_0: {ctor: '_Tuple2', _0: _p18, _1: _p22 - 1},
+												_1: {
+													ctor: '::',
+													_0: {ctor: '_Tuple2', _0: _p19 + 1, _1: _p23 - 2},
+													_1: {ctor: '[]'}
+												}
+											}
+										}
+									},
+									_1: 3
+								};
+							case 3:
+								return {
+									ctor: '_Tuple2',
+									_0: {
+										ctor: '::',
+										_0: {ctor: '_Tuple2', _0: _p16 - 1, _1: _p20 - 2},
+										_1: {
+											ctor: '::',
+											_0: {ctor: '_Tuple2', _0: _p17, _1: _p21 - 1},
+											_1: {
+												ctor: '::',
+												_0: {ctor: '_Tuple2', _0: _p18 + 1, _1: _p22},
+												_1: {
+													ctor: '::',
+													_0: {ctor: '_Tuple2', _0: _p19 + 2, _1: _p23 + 1},
+													_1: {ctor: '[]'}
+												}
+											}
+										}
+									},
+									_1: 0
+								};
+							default:
+								return {ctor: '_Tuple2', _0: cs, _1: 0};
+						}
+					} else {
+						if (_elm_lang$core$Native_Utils.eq(tet, _user$project$TetroType$o_type)) {
+							return {ctor: '_Tuple2', _0: cs, _1: 0};
+						} else {
+							if (_elm_lang$core$Native_Utils.eq(tet, _user$project$TetroType$s_type)) {
+								var _p13 = p;
+								switch (_p13) {
+									case 0:
+										return {
+											ctor: '_Tuple2',
+											_0: {
+												ctor: '::',
+												_0: {ctor: '_Tuple2', _0: _p16 + 1, _1: _p20 - 1},
+												_1: {
+													ctor: '::',
+													_0: {ctor: '_Tuple2', _0: _p17, _1: _p21},
+													_1: {
+														ctor: '::',
+														_0: {ctor: '_Tuple2', _0: _p18 + 1, _1: _p22 + 1},
+														_1: {
+															ctor: '::',
+															_0: {ctor: '_Tuple2', _0: _p19, _1: _p23 + 2},
+															_1: {ctor: '[]'}
+														}
+													}
+												}
+											},
+											_1: 1
+										};
+									case 1:
+										return {
+											ctor: '_Tuple2',
+											_0: {
+												ctor: '::',
+												_0: {ctor: '_Tuple2', _0: _p16 + 1, _1: _p20 + 1},
+												_1: {
+													ctor: '::',
+													_0: {ctor: '_Tuple2', _0: _p17, _1: _p21},
+													_1: {
+														ctor: '::',
+														_0: {ctor: '_Tuple2', _0: _p18 - 1, _1: _p22 + 1},
+														_1: {
+															ctor: '::',
+															_0: {ctor: '_Tuple2', _0: _p19 - 2, _1: _p23},
+															_1: {ctor: '[]'}
+														}
+													}
+												}
+											},
+											_1: 2
+										};
+									case 2:
+										return {
+											ctor: '_Tuple2',
+											_0: {
+												ctor: '::',
+												_0: {ctor: '_Tuple2', _0: _p16 - 1, _1: _p20 + 1},
+												_1: {
+													ctor: '::',
+													_0: {ctor: '_Tuple2', _0: _p17, _1: _p21},
+													_1: {
+														ctor: '::',
+														_0: {ctor: '_Tuple2', _0: _p18 - 1, _1: _p22 - 1},
+														_1: {
+															ctor: '::',
+															_0: {ctor: '_Tuple2', _0: _p19, _1: _p23 - 2},
+															_1: {ctor: '[]'}
+														}
+													}
+												}
+											},
+											_1: 3
+										};
+									case 3:
+										return {
+											ctor: '_Tuple2',
+											_0: {
+												ctor: '::',
+												_0: {ctor: '_Tuple2', _0: _p16 - 1, _1: _p20 - 1},
+												_1: {
+													ctor: '::',
+													_0: {ctor: '_Tuple2', _0: _p17, _1: _p21},
+													_1: {
+														ctor: '::',
+														_0: {ctor: '_Tuple2', _0: _p18 + 1, _1: _p22 - 1},
+														_1: {
+															ctor: '::',
+															_0: {ctor: '_Tuple2', _0: _p19 + 2, _1: _p23},
+															_1: {ctor: '[]'}
+														}
+													}
+												}
+											},
+											_1: 0
+										};
+									default:
+										return {ctor: '_Tuple2', _0: cs, _1: 0};
+								}
+							} else {
+								if (_elm_lang$core$Native_Utils.eq(tet, _user$project$TetroType$j_type)) {
+									var _p14 = p;
+									switch (_p14) {
+										case 0:
+											return {
+												ctor: '_Tuple2',
+												_0: {
+													ctor: '::',
+													_0: {ctor: '_Tuple2', _0: _p16 + 2, _1: _p20},
+													_1: {
+														ctor: '::',
+														_0: {ctor: '_Tuple2', _0: _p17 + 1, _1: _p21 - 1},
+														_1: {
+															ctor: '::',
+															_0: {ctor: '_Tuple2', _0: _p18, _1: _p22},
+															_1: {
+																ctor: '::',
+																_0: {ctor: '_Tuple2', _0: _p19 - 1, _1: _p23 + 1},
+																_1: {ctor: '[]'}
+															}
+														}
+													}
+												},
+												_1: 1
+											};
+										case 1:
+											return {
+												ctor: '_Tuple2',
+												_0: {
+													ctor: '::',
+													_0: {ctor: '_Tuple2', _0: _p16, _1: _p20 + 2},
+													_1: {
+														ctor: '::',
+														_0: {ctor: '_Tuple2', _0: _p17 + 1, _1: _p21 + 1},
+														_1: {
+															ctor: '::',
+															_0: {ctor: '_Tuple2', _0: _p18, _1: _p22},
+															_1: {
+																ctor: '::',
+																_0: {ctor: '_Tuple2', _0: _p19 - 1, _1: _p23 - 1},
+																_1: {ctor: '[]'}
+															}
+														}
+													}
+												},
+												_1: 2
+											};
+										case 2:
+											return {
+												ctor: '_Tuple2',
+												_0: {
+													ctor: '::',
+													_0: {ctor: '_Tuple2', _0: _p16 - 2, _1: _p20},
+													_1: {
+														ctor: '::',
+														_0: {ctor: '_Tuple2', _0: _p17 - 1, _1: _p21 + 1},
+														_1: {
+															ctor: '::',
+															_0: {ctor: '_Tuple2', _0: _p18, _1: _p22},
+															_1: {
+																ctor: '::',
+																_0: {ctor: '_Tuple2', _0: _p19 + 1, _1: _p23 - 1},
+																_1: {ctor: '[]'}
+															}
+														}
+													}
+												},
+												_1: 3
+											};
+										case 3:
+											return {
+												ctor: '_Tuple2',
+												_0: {
+													ctor: '::',
+													_0: {ctor: '_Tuple2', _0: _p16, _1: _p20 - 2},
+													_1: {
+														ctor: '::',
+														_0: {ctor: '_Tuple2', _0: _p17 - 1, _1: _p21 - 1},
+														_1: {
+															ctor: '::',
+															_0: {ctor: '_Tuple2', _0: _p18, _1: _p22},
+															_1: {
+																ctor: '::',
+																_0: {ctor: '_Tuple2', _0: _p19 + 1, _1: _p23 + 1},
+																_1: {ctor: '[]'}
+															}
+														}
+													}
+												},
+												_1: 0
+											};
+										default:
+											return {ctor: '_Tuple2', _0: cs, _1: 0};
+									}
+								} else {
+									if (_elm_lang$core$Native_Utils.eq(tet, _user$project$TetroType$z_type)) {
+										var _p15 = p;
+										switch (_p15) {
+											case 0:
+												return {
+													ctor: '_Tuple2',
+													_0: {
+														ctor: '::',
+														_0: {ctor: '_Tuple2', _0: _p16 + 2, _1: _p20},
+														_1: {
+															ctor: '::',
+															_0: {ctor: '_Tuple2', _0: _p17 + 1, _1: _p21 + 1},
+															_1: {
+																ctor: '::',
+																_0: {ctor: '_Tuple2', _0: _p18, _1: _p22},
+																_1: {
+																	ctor: '::',
+																	_0: {ctor: '_Tuple2', _0: _p19 - 1, _1: _p23 + 1},
+																	_1: {ctor: '[]'}
+																}
+															}
+														}
+													},
+													_1: 1
+												};
+											case 1:
+												return {
+													ctor: '_Tuple2',
+													_0: {
+														ctor: '::',
+														_0: {ctor: '_Tuple2', _0: _p16, _1: _p20 + 2},
+														_1: {
+															ctor: '::',
+															_0: {ctor: '_Tuple2', _0: _p17 - 1, _1: _p21 + 1},
+															_1: {
+																ctor: '::',
+																_0: {ctor: '_Tuple2', _0: _p18, _1: _p22},
+																_1: {
+																	ctor: '::',
+																	_0: {ctor: '_Tuple2', _0: _p19 - 1, _1: _p23 - 1},
+																	_1: {ctor: '[]'}
+																}
+															}
+														}
+													},
+													_1: 2
+												};
+											case 2:
+												return {
+													ctor: '_Tuple2',
+													_0: {
+														ctor: '::',
+														_0: {ctor: '_Tuple2', _0: _p16 - 2, _1: _p20},
+														_1: {
+															ctor: '::',
+															_0: {ctor: '_Tuple2', _0: _p17 - 1, _1: _p21 - 1},
+															_1: {
+																ctor: '::',
+																_0: {ctor: '_Tuple2', _0: _p18, _1: _p22},
+																_1: {
+																	ctor: '::',
+																	_0: {ctor: '_Tuple2', _0: _p19 + 1, _1: _p23 - 1},
+																	_1: {ctor: '[]'}
+																}
+															}
+														}
+													},
+													_1: 3
+												};
+											case 3:
+												return {
+													ctor: '_Tuple2',
+													_0: {
+														ctor: '::',
+														_0: {ctor: '_Tuple2', _0: _p16, _1: _p20 - 2},
+														_1: {
+															ctor: '::',
+															_0: {ctor: '_Tuple2', _0: _p17 + 1, _1: _p21 - 1},
+															_1: {
+																ctor: '::',
+																_0: {ctor: '_Tuple2', _0: _p18, _1: _p22},
+																_1: {
+																	ctor: '::',
+																	_0: {ctor: '_Tuple2', _0: _p19 + 1, _1: _p23 + 1},
+																	_1: {ctor: '[]'}
+																}
+															}
+														}
+													},
+													_1: 0
+												};
+											default:
+												return {ctor: '_Tuple2', _0: cs, _1: 0};
+										}
+									} else {
+										return {ctor: '_Tuple2', _0: cs, _1: 0};
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		} else {
+			return {ctor: '_Tuple2', _0: cs, _1: 0};
+		}
+	});
+var _user$project$Tetris$rotateTetro = function (t) {
+	var _p24 = A3(_user$project$Tetris$rotate, t.tetro, t.current, t.position);
+	var cs_ = _p24._0;
+	var p_ = _p24._1;
+	return {tetro: t.tetro, current: cs_, position: p_};
+};
+var _user$project$Tetris$makeTetro = function (i) {
+	var _p25 = i;
+	switch (_p25) {
+		case 0:
+			return {
+				tetro: _user$project$TetroType$l_type,
+				current: {
+					ctor: '::',
+					_0: {ctor: '_Tuple2', _0: 0, _1: 0},
+					_1: {
+						ctor: '::',
+						_0: {ctor: '_Tuple2', _0: 1, _1: 0},
+						_1: {
+							ctor: '::',
+							_0: {ctor: '_Tuple2', _0: 2, _1: 0},
+							_1: {
+								ctor: '::',
+								_0: {ctor: '_Tuple2', _0: 2, _1: -1},
+								_1: {ctor: '[]'}
+							}
+						}
+					}
+				},
+				position: 0
+			};
+		case 1:
+			return {
+				tetro: _user$project$TetroType$t_type,
+				current: {
+					ctor: '::',
+					_0: {ctor: '_Tuple2', _0: 0, _1: 0},
+					_1: {
+						ctor: '::',
+						_0: {ctor: '_Tuple2', _0: 1, _1: 0},
+						_1: {
+							ctor: '::',
+							_0: {ctor: '_Tuple2', _0: 1, _1: -1},
+							_1: {
+								ctor: '::',
+								_0: {ctor: '_Tuple2', _0: 2, _1: 0},
+								_1: {ctor: '[]'}
+							}
+						}
+					}
+				},
+				position: 0
+			};
+		case 2:
+			return {
+				tetro: _user$project$TetroType$i_type,
+				current: {
+					ctor: '::',
+					_0: {ctor: '_Tuple2', _0: 0, _1: 0},
+					_1: {
+						ctor: '::',
+						_0: {ctor: '_Tuple2', _0: 1, _1: 0},
+						_1: {
+							ctor: '::',
+							_0: {ctor: '_Tuple2', _0: 2, _1: 0},
+							_1: {
+								ctor: '::',
+								_0: {ctor: '_Tuple2', _0: 3, _1: 0},
+								_1: {ctor: '[]'}
+							}
+						}
+					}
+				},
+				position: 0
+			};
+		case 3:
+			return {
+				tetro: _user$project$TetroType$o_type,
+				current: {
+					ctor: '::',
+					_0: {ctor: '_Tuple2', _0: 0, _1: 0},
+					_1: {
+						ctor: '::',
+						_0: {ctor: '_Tuple2', _0: 1, _1: 0},
+						_1: {
+							ctor: '::',
+							_0: {ctor: '_Tuple2', _0: 0, _1: 1},
+							_1: {
+								ctor: '::',
+								_0: {ctor: '_Tuple2', _0: 1, _1: 1},
+								_1: {ctor: '[]'}
+							}
+						}
+					}
+				},
+				position: 0
+			};
+		case 4:
+			return {
+				tetro: _user$project$TetroType$s_type,
+				current: {
+					ctor: '::',
+					_0: {ctor: '_Tuple2', _0: 0, _1: 0},
+					_1: {
+						ctor: '::',
+						_0: {ctor: '_Tuple2', _0: 1, _1: 0},
+						_1: {
+							ctor: '::',
+							_0: {ctor: '_Tuple2', _0: 1, _1: -1},
+							_1: {
+								ctor: '::',
+								_0: {ctor: '_Tuple2', _0: 2, _1: -1},
+								_1: {ctor: '[]'}
+							}
+						}
+					}
+				},
+				position: 0
+			};
+		case 5:
+			return {
+				tetro: _user$project$TetroType$j_type,
+				current: {
+					ctor: '::',
+					_0: {ctor: '_Tuple2', _0: 0, _1: -1},
+					_1: {
+						ctor: '::',
+						_0: {ctor: '_Tuple2', _0: 0, _1: 0},
+						_1: {
+							ctor: '::',
+							_0: {ctor: '_Tuple2', _0: 1, _1: 0},
+							_1: {
+								ctor: '::',
+								_0: {ctor: '_Tuple2', _0: 2, _1: 0},
+								_1: {ctor: '[]'}
+							}
+						}
+					}
+				},
+				position: 0
+			};
+		case 6:
+			return {
+				tetro: _user$project$TetroType$z_type,
+				current: {
+					ctor: '::',
+					_0: {ctor: '_Tuple2', _0: 0, _1: 0},
+					_1: {
+						ctor: '::',
+						_0: {ctor: '_Tuple2', _0: 1, _1: 0},
+						_1: {
+							ctor: '::',
+							_0: {ctor: '_Tuple2', _0: 1, _1: 1},
+							_1: {
+								ctor: '::',
+								_0: {ctor: '_Tuple2', _0: 2, _1: 1},
+								_1: {ctor: '[]'}
+							}
+						}
+					}
+				},
+				position: 0
+			};
+		default:
+			return {
+				tetro: _user$project$TetroType$l_type,
+				current: {
+					ctor: '::',
+					_0: {ctor: '_Tuple2', _0: 0, _1: 0},
+					_1: {
+						ctor: '::',
+						_0: {ctor: '_Tuple2', _0: 1, _1: 0},
+						_1: {
+							ctor: '::',
+							_0: {ctor: '_Tuple2', _0: 2, _1: 0},
+							_1: {
+								ctor: '::',
+								_0: {ctor: '_Tuple2', _0: 2, _1: -1},
+								_1: {ctor: '[]'}
+							}
+						}
+					}
+				},
+				position: 0
+			};
+	}
+};
+var _user$project$Tetris$update = F2(
+	function (msg, model) {
+		var _p26 = msg;
+		switch (_p26.ctor) {
+			case 'Tick':
+				return {
+					ctor: '_Tuple2',
+					_0: _elm_lang$core$Native_Utils.update(
+						model,
+						{
+							board: model.board,
+							piece: _user$project$Tetris$downTetro(model.piece),
+							seed: model.seed,
+							level: model.level
+						}),
+					_1: _elm_lang$core$Platform_Cmd$none
+				};
+			case 'Input':
+				switch (_p26._0) {
+					case 37:
+						return {
+							ctor: '_Tuple2',
+							_0: _elm_lang$core$Native_Utils.update(
+								model,
+								{
+									board: model.board,
+									piece: _user$project$Tetris$leftTetro(model.piece),
+									seed: model.seed,
+									level: model.level
+								}),
+							_1: _elm_lang$core$Platform_Cmd$none
+						};
+					case 38:
+						return {
+							ctor: '_Tuple2',
+							_0: _elm_lang$core$Native_Utils.update(
+								model,
+								{
+									board: model.board,
+									piece: _user$project$Tetris$rotateTetro(model.piece),
+									seed: model.seed,
+									level: model.level
+								}),
+							_1: _elm_lang$core$Platform_Cmd$none
+						};
+					case 39:
+						return {
+							ctor: '_Tuple2',
+							_0: _elm_lang$core$Native_Utils.update(
+								model,
+								{
+									board: model.board,
+									piece: _user$project$Tetris$rightTetro(model.piece),
+									seed: model.seed,
+									level: model.level
+								}),
+							_1: _elm_lang$core$Platform_Cmd$none
+						};
+					case 40:
+						return {
+							ctor: '_Tuple2',
+							_0: _elm_lang$core$Native_Utils.update(
+								model,
+								{
+									board: model.board,
+									piece: _user$project$Tetris$downTetro(model.piece),
+									seed: model.seed,
+									level: model.level
+								}),
+							_1: _elm_lang$core$Platform_Cmd$none
+						};
+					default:
+						return {ctor: '_Tuple2', _0: model, _1: _elm_lang$core$Platform_Cmd$none};
+				}
+			default:
+				var _p27 = A2(
+					_elm_lang$core$Random$step,
+					A2(_elm_lang$core$Random$int, 0, 6),
+					model.seed);
+				var randomInt = _p27._0;
+				var newSeed = _p27._1;
+				return {
+					ctor: '_Tuple2',
+					_0: _elm_lang$core$Native_Utils.update(
+						model,
+						{
+							board: model.board,
+							piece: _user$project$Tetris$makeTetro(randomInt),
+							seed: newSeed,
+							level: model.level
+						}),
+					_1: _elm_lang$core$Platform_Cmd$none
+				};
+		}
+	});
+var _user$project$Tetris$initialModel = {
+	board: _user$project$Board$newBoard,
+	piece: _user$project$Tetris$makeTetro(0),
+	seed: _elm_lang$core$Random$initialSeed(2017),
+	level: 0
+};
+var _user$project$Tetris$init = {ctor: '_Tuple2', _0: _user$project$Tetris$initialModel, _1: _elm_lang$core$Platform_Cmd$none};
+var _user$project$Tetris$Model = F4(
+	function (a, b, c, d) {
+		return {board: a, piece: b, seed: c, level: d};
+	});
+var _user$project$Tetris$Cycle = {ctor: 'Cycle'};
+var _user$project$Tetris$Tick = {ctor: 'Tick'};
+var _user$project$Tetris$Input = function (a) {
+	return {ctor: 'Input', _0: a};
+};
+var _user$project$Tetris$subscriptions = function (model) {
+	return _elm_lang$core$Platform_Sub$batch(
+		{
+			ctor: '::',
+			_0: function () {
+				var _p28 = model.level;
+				switch (_p28) {
+					case 0:
+						return A2(
+							_elm_lang$core$Time$every,
+							_elm_lang$core$Time$second,
+							function (t) {
+								return _user$project$Tetris$Tick;
+							});
+					case 1:
+						return A2(
+							_elm_lang$core$Time$every,
+							750 * _elm_lang$core$Time$millisecond,
+							function (t) {
+								return _user$project$Tetris$Tick;
+							});
+					case 2:
+						return A2(
+							_elm_lang$core$Time$every,
+							500 * _elm_lang$core$Time$millisecond,
+							function (t) {
+								return _user$project$Tetris$Tick;
+							});
+					case 3:
+						return A2(
+							_elm_lang$core$Time$every,
+							250 * _elm_lang$core$Time$millisecond,
+							function (t) {
+								return _user$project$Tetris$Tick;
+							});
+					case 4:
+						return A2(
+							_elm_lang$core$Time$every,
+							100 * _elm_lang$core$Time$millisecond,
+							function (t) {
+								return _user$project$Tetris$Tick;
+							});
+					default:
+						return A2(
+							_elm_lang$core$Time$every,
+							50 * _elm_lang$core$Time$millisecond,
+							function (t) {
+								return _user$project$Tetris$Tick;
+							});
+				}
+			}(),
+			_1: {
+				ctor: '::',
+				_0: _elm_lang$keyboard$Keyboard$downs(_user$project$Tetris$Input),
+				_1: {ctor: '[]'}
+			}
+		});
+};
+var _user$project$Tetris$main = _elm_lang$html$Html$program(
+	{init: _user$project$Tetris$init, view: _user$project$Tetris$view, update: _user$project$Tetris$update, subscriptions: _user$project$Tetris$subscriptions})();
