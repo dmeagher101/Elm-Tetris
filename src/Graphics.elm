@@ -43,7 +43,8 @@ drawTetromino t =
       else if (tetro == o_type) then blockRGB Yellow
       else if (tetro == s_type) then blockRGB Green
       else if (tetro == j_type) then blockRGB Blue
-      else blockRGB Red
+      else if (tetro == z_type) then blockRGB Red
+      else blockRGB E
   in
     List.map (drawPosition c) current
 

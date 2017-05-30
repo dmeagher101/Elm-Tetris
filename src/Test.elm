@@ -41,7 +41,7 @@ blank =
 initialmodel : Model
 initialmodel =
   { board = newBoard ,
-    piece = makeTetro 5,
+    piece = makeTetro 6,
     seed = Random.initialSeed 0,
     level = 1,
     floored = False
