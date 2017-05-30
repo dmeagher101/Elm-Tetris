@@ -64,15 +64,39 @@ checkClear : Board -> List Int
 checkClear b = 
   List.map (\x -> (if checkFull b x then x else -1)) (List.range 0 19)
 
-clearAll : Board -> List Int -> Board
-clearAll b ls =
+clearAll : Int -> Board -> List Int -> (Board, Int)
+clearAll acc b ls =
   case ls of 
-    []     -> b
+    []     -> (b, acc)
     l::ls_ -> if (l>=0) 
-              then clearAll (clearLine l b) ls_ 
-              else clearAll b ls_  
+              then clearAll (acc+1) (clearLine l b) ls_ 
+              else clearAll acc b ls_  
 
 
 setBlock : Block -> Board -> Int -> Int -> Board
 setBlock bl bo i j =
   set (boardIndex i j) bl bo
+
+toLevel : Int -> Int 
+toLevel i =
+  if i < 1000 then 0 
+  else if i < 5000 then 1
+  else if i < 10000 then 2
+  else if i < 15000 then 3
+  else 4
+
+
+
+{-
+type alias Model =
+    {board : Board
+    , piece : Tetromino
+    , hold : Maybe Tetromino
+    , next : Tetromino
+    , seed : Seed
+    , level : Int
+    , floored : Bool
+    , over : Bool
+    }
+
+    -}

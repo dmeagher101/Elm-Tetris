@@ -50,6 +50,17 @@ tetroBlock t =
     J -> Blue
     Z -> Red
 
+resetTetro : Tetromino -> Tetromino 
+resetTetro t = 
+    case t.tetro of 
+        L -> makeTetro 0 
+        T -> makeTetro 1
+        I -> makeTetro 2
+        O -> makeTetro 3
+        S -> makeTetro 4
+        J -> makeTetro 5
+        Z -> makeTetro 6
+
 makeTetro : Int -> Tetromino
 makeTetro i =
     case i of
