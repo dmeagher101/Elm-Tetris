@@ -13,7 +13,7 @@ import Random exposing (..)
 
 type Msg = Tick Time
 
-redblueboard = buildBoard altBlocks
+redblueboard = buildBoard altRows
 
 type alias Model =
     { board : Board
@@ -25,14 +25,21 @@ type alias Model =
 l_start : Tetromino
 l_start =
   { tetro = l_type
-  , current = [(0, 0), (1, 0), (2, 0),(2,1)]
+  , current = [(0, 0), (1, 0), (2, 0), (2,1)]
   , position = 0
   }
 
-tetroTest : Model
-tetroTest =
-  { board = newBoard ,
-    piece = l_start,
+blank : Tetromino
+blank =
+  { tetro = l_type
+  , current = []
+  , position = 0
+  }
+
+initialmodel : Model
+initialmodel =
+  { board = redblueboard ,
+    piece = blank,
     seed = Random.initialSeed 0,
     level = 1
   }
@@ -42,7 +49,7 @@ view model =
   toHtml <| drawGame model.board <| model.piece
 
 init : (Model, Cmd Msg)
-init = (tetroTest, Cmd.none)
+init = (initialmodel, Cmd.none)
 
 altRows : Int -> Block
 altRows i =
@@ -60,12 +67,20 @@ altBlocks i =
 
 subscriptions : Model -> Sub Msg
 subscriptions model =
-  every (1000 * second) Tick
+  every (1 * second) Tick
 
 update : Msg -> Model -> (Model, Cmd Msg)
 update msg model =
-  case msg of
-    Tick t -> (model, Cmd.none)
+  let
+    newmodel = {
+      seed = model.seed,
+      piece = model.piece,
+      board = clearLine 19 model.board,
+      level = 1
+  }
+  in
+    case msg of
+      Tick t -> (newmodel, Cmd.none)
 
 main : Program Never Model Msg
 main =

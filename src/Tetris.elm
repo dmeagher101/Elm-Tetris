@@ -4,7 +4,7 @@ import Random exposing (..)
 import Time
 import Html exposing (Html)
 import List exposing (..)
-
+import Keyboard exposing (..)
 import TetroType exposing (..)
 import Board exposing (..)
 
@@ -25,7 +25,7 @@ type alias Model =
     , level : Int
     }
 
-type Msg = Input | Tick | Cycle
+type Msg = Input Keyboard.KeyCode | Tick | Cycle
 
 init : (Model, Cmd Msg)
 init = (initialModel, Cmd.none)
@@ -40,13 +40,17 @@ initialModel =
 
 subscriptions : Model -> Sub Msg
 subscriptions model =
+  Sub.batch
+  [
     case model.level of
         0 -> Time.every Time.second (\t -> Tick)
         1 -> Time.every (750 * Time.millisecond) (\t -> Tick)
         2 -> Time.every (500 * Time.millisecond) (\t -> Tick)
         3 -> Time.every (250 * Time.millisecond) (\t -> Tick)
         4 -> Time.every (100 * Time.millisecond) (\t -> Tick)
-        _ -> Time.every (50 * Time.millisecond) (\t -> Tick)
+        _ -> Time.every (50 * Time.millisecond) (\t -> Tick) ,
+    Keyboard.downs Input
+  ]
 
 tetroGenerator : Tetromino
 tetroGenerator =
@@ -107,7 +111,12 @@ update msg model =
                  ,         level = model.level
                  }
                  , Cmd.none)
-        _    -> Debug.crash "Not there yet"
+        Input 37 -> Debug.crash "Left arrow"
+        Input 38 -> Debug.crash "Up arrow"
+        Input 39 -> Debug.crash "Right arrow"
+        Input 40 -> Debug.crash "Down Arrow"
+        Input _  -> (model, Cmd.none)
+        _ -> Debug.crash "TODO"
 
 view : Model -> Html Msg
 view model =
