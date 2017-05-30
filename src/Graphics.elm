@@ -10,7 +10,7 @@ import Element exposing (..)
 import Text exposing (..)
 --import Svg exposing (..)
 
-pixWidth = 200
+pixWidth = 185
 blockWidth = pixWidth // 10
 
 blockRGB : Block -> Color
@@ -101,4 +101,4 @@ drawTitle =
 drawGame : Board -> Tetromino -> Tetromino -> Maybe Tetromino -> Element
 drawGame b t n h =
   let sz = (3 * pixWidth) in
-  collage (floor (sz * 1.8)) sz (toForms b ++ drawTetromino t ++ drawNext n ++ drawHold h ++ drawTitle)
+  collage (floor (sz * 1.8)) (floor <| sz) (toForms b ++ drawTetromino t ++ drawNext n ++ drawHold h ++ drawTitle)
