@@ -1,0 +1,7 @@
+﻿
+
+	This is an elm implementation of the class arcade puzzle game Tetris. You can compile and run this program two ways, either by running “elm-reactor” in the root of the Elm-Tetris respository or by compiling it to an html file by running “elm-make”, also in the root of Elm-Tetris. A makefile is provided as well, so simply issuing the command “make” should compile it it into an index.html file that you can then serve on a webserver. 
+
+	The game is controlled using the arrow keys and the space bar. The left and right arrow keys moves the currently falling Tetromino in their respective directions, the up arrow key rotates the Tetromino, and the down arrow key causes it to fall faster. The space bar swaps out the current Tetromino for what ever is in the hold box.
+
+	We have done by far the most extensive testing with Chrome/Chromium, where it works fine, but we can’t vouch for other browsers. We ran it once with Firefox, and that seemed to be working ok, we can’t say for certain. 
