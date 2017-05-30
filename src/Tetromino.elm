@@ -93,7 +93,7 @@ checkCollision_ b (x, y) =
 checkBelow_ : Board -> (Int, Int) -> Bool
 checkBelow_ b (x, y) =
   let b_ = getBlock b x (y+1) in
-  y >= 19 || b_ /= E || b_ == Out
+  y >= 18 || b_ /= E || b_ == Out
 
 checkBelow : Board -> List (Int , Int) -> Bool
 checkBelow b ps =
