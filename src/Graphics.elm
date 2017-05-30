@@ -1,7 +1,6 @@
 module Graphics exposing (..)
 
 import Color exposing (..)
-import Tetris exposing (..)
 import Tetromino exposing (..)
 import Board exposing (..)
 import Collage exposing (..)
@@ -10,7 +9,7 @@ import Element exposing (..)
 import Text exposing (..)
 --import Svg exposing (..)
 
-pixWidth = 185
+pixWidth = 200
 blockWidth = pixWidth // 10
 
 blockRGB : Block -> Color
@@ -94,11 +93,19 @@ drawHold h =
 drawTitle : (List Form)
 drawTitle =
   let
-    w = fromString "Daniel and Hadi's Super Awesome Tetris in Elm"
+    w = fromString "TetrElm"
   in
     [scale 3 <| move (pixWidth * 0.5, pixWidth * 1.3) <| text w]
 
-drawGame : Board -> Tetromino -> Tetromino -> Maybe Tetromino -> Element
-drawGame b t n h =
+drawScore : Int -> (List Form)
+drawScore n =
+  let
+    w = Text.fromString <| ("Score: " ++ toString n)
+  in
+    [scale 2 <| move (pixWidth, -pixWidth) <| text w]
+
+drawGame : Board -> Tetromino -> Tetromino -> Maybe Tetromino -> Int -> Element
+drawGame b t n h s =
   let sz = (3 * pixWidth) in
-  collage (floor (sz * 1.8)) (floor <| sz) (toForms b ++ drawTetromino t ++ drawNext n ++ drawHold h ++ drawTitle)
+  collage (floor (sz * 1.8)) (floor <| sz) (toForms b ++ drawTetromino t ++
+    drawNext n ++ drawHold h ++ drawTitle ++ drawScore s)
