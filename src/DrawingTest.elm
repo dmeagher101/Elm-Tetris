@@ -1,13 +1,12 @@
 module DrawingTest exposing (..)
 
 import Board exposing (..)
+import Tetris exposing (..)
 import TetrisGraphics exposing (..)
 import Array exposing (..)
 import Html exposing (Html)
 import Element exposing (..)
 import Time exposing (..)
-
-type alias Model = Board
 
 type Msg = Tick Time
 
