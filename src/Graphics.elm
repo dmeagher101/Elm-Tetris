@@ -37,15 +37,7 @@ drawTetromino : Tetromino -> List Form
 drawTetromino t =
   let
     {tetro, current, position} = t
-    c =
-      if (tetro == l_type) then blockRGB Orange
-      else if (tetro == i_type) then blockRGB Cyan
-      else if (tetro == t_type) then blockRGB Purple
-      else if (tetro == o_type) then blockRGB Yellow
-      else if (tetro == s_type) then blockRGB Green
-      else if (tetro == j_type) then blockRGB Blue
-      else if (tetro == z_type) then blockRGB Red
-      else blockRGB E
+    c = blockRGB <| tetroBlock t
   in
     List.map (drawPosition c) current
 

@@ -39,6 +39,17 @@ z_type : TetroType
 z_type =
   Z
 
+tetroBlock : Tetromino -> Block
+tetroBlock t =
+  case t.tetro of
+    L -> Orange
+    I -> Cyan
+    T -> Purple
+    O -> Yellow
+    S -> Green
+    J -> Blue
+    Z -> Red
+
 makeTetro : Int -> Tetromino
 makeTetro i =
     case i of
@@ -90,6 +101,16 @@ checkBelow b ps =
     [] -> False
     _ ->
       List.foldr (&&) True <| List.map (checkBelow_ b) ps
+
+setTetro : Board -> Tetromino -> Board
+setTetro b t =
+  setTetro_ (tetroBlock t) b t.current
+
+setTetro_ : Block -> Board -> List (Int, Int) -> Board
+setTetro_ bl bo ps =
+  case ps of
+    [] -> bo
+    (x,y)::tl -> setTetro_ bl (setBlock bl bo x y) tl
 
 rotateTetro: Tetromino -> Tetromino
 rotateTetro t =
