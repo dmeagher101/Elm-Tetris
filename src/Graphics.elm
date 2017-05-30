@@ -2,7 +2,7 @@ module Graphics exposing (..)
 
 import Color exposing (..)
 import Tetris exposing (..)
-import TetroType exposing (..)
+import Tetromino exposing (..)
 import Board exposing (..)
 import Collage exposing (..)
 import Array exposing (..)

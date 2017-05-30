@@ -1,7 +1,43 @@
 module Tetromino exposing (..)
 
---import Tetris exposing (..)
-import TetroType exposing (..)
+import Array exposing (..)
+import Board exposing (..)
+
+type TetroType = L | T | I | O | S | Z | J
+
+type alias Tetromino =
+    { tetro : TetroType
+    , current : List (Int, Int)
+    , position : Int
+    }
+
+l_type : TetroType
+l_type =
+  L
+
+t_type : TetroType
+t_type =
+  T
+
+i_type : TetroType
+i_type =
+  I
+
+o_type : TetroType
+o_type =
+  O
+
+s_type : TetroType
+s_type =
+  S
+
+j_type : TetroType
+j_type =
+  J
+
+z_type : TetroType
+z_type =
+  Z
 
 makeTetro : Int -> Tetromino
 makeTetro i =
