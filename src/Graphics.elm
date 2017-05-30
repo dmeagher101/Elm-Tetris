@@ -76,7 +76,7 @@ drawNext t =
 
 holdShift : (Int, Int) -> (Int, Int)
 holdShift (x,y) =
-  (x-4, y+3)
+  (x-5, y+3)
 
 drawHold : Maybe Tetromino -> (List Form)
 drawHold h =
