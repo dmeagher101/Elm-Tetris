@@ -50,10 +50,10 @@ tetroBlock t =
     J -> Blue
     Z -> Red
 
-resetTetro : Tetromino -> Tetromino 
-resetTetro t = 
-    case t.tetro of 
-        L -> makeTetro 0 
+resetTetro : Tetromino -> Tetromino
+resetTetro t =
+    case t.tetro of
+        L -> makeTetro 0
         T -> makeTetro 1
         I -> makeTetro 2
         O -> makeTetro 3
@@ -99,7 +99,11 @@ makeTetro i =
 
 checkCollision_ : Board -> (Int, Int) -> Bool
 checkCollision_ b (x, y) =
-  (x <= 0) || (x >= 9) || (y >= 19) || ((getBlock b x y) == E)
+  (x < 0) || (x > 9) || (y > 19) || ((getBlock b x y) /= E)
+
+checkCollision : Board -> List (Int, Int) -> Bool
+checkCollision b ps =
+  List.foldr (||) False <| List.map (\ps_ -> checkCollision_ b ps_) ps
 
 checkBelow_ : Board -> (Int, Int) -> Bool
 checkBelow_ b (x, y) =
@@ -149,11 +153,14 @@ setTetro_ bl bo ps =
       let bo_ = setBlock bl bo x (y-1) in
       setTetro_ bl bo_ tl
 
-rotateTetro: Tetromino -> Tetromino
-rotateTetro t =
+rotateTetro: Board -> Tetromino -> Tetromino
+rotateTetro b t =
     let
        (cs_, p_) = rotate t.tetro t.current t.position
     in
+      if (checkCollision b cs_) then
+        t
+      else
        {tetro = t.tetro, current = cs_, position = p_}
 
 rotate : TetroType -> List (Int,Int) -> Int -> (List (Int,Int), Int)

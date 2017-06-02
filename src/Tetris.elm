@@ -177,7 +177,7 @@ update msg model =
                  , Cmd.none)
         Input 38 ->
               ({ model | board = model.board
-               ,         piece = rotateTetro model.piece
+               ,         piece = rotateTetro model.board model.piece
                ,         seed = model.seed
                ,         level = model.level
                }
