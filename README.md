@@ -1,4 +1,4 @@
-# Elm-Tetris
+# TetrElm
 An implementation of Tetris in the Elm Programming Language: A project for my functional programming class.
 
 You can compile this project using the included Makefile by issuing the command "make". Elm compiles to JavaScript, so you can run the resuling index.html file in a browser. 
