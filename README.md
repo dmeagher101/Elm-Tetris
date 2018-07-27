@@ -9,4 +9,4 @@ This project was made with Elm v0.18. Elm is a very rapidly changing language at
 
 As for playing the game, the controls are fairly simple, and use the arrow keys and the spacebar. The left and right arrow keys move the currently falling Tetromino in their respective directions, the up arrow key rotates the block, the down arrow key accelerates its falling speed and the spacebar swaps out the Tetromino with whatever is in the hold box.
 
-Feel free to contact me if you have any questions using the contact information on my github.
+Feel free to contact me if you have any questions using the contact information on my GitHub.
